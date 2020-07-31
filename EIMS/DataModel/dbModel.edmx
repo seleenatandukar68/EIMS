@@ -1,0 +1,2019 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="myDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'myDB.dbo.FileDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FileDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="InternId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InternId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="60" />
+          <Property Name="FileContent" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblAssignedTask">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="PrefId" Type="int" />
+          <Property Name="WeekId" Type="int" />
+          <Property Name="TaskDescription" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsPublished" Type="bit" />
+          <Property Name="AssignedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssignedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="tblComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="AddedOn" Type="datetime" />
+          <Property Name="InternId" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="WeekId" Type="int" />
+          <Property Name="IsRead" Type="bit" />
+          <Property Name="Feedback" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tblInternInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="InternId" Type="nvarchar" MaxLength="50" />
+          <Property Name="FName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qualification" Type="nvarchar" MaxLength="50" />
+          <Property Name="PreId" Type="int" />
+          <Property Name="ProjId" Type="int" />
+          <Property Name="ProjRole" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblMainMenu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainMenu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblMentorInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MentorId" Type="nvarchar" MaxLength="50" />
+          <Property Name="FName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'myDB.dbo.tblMentorIntern' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tblMentorIntern">
+          <Property Name="MentorId" Type="int" />
+          <Property Name="InternId" Type="int" />
+        </EntityType>-->
+        <EntityType Name="tblPreference">
+          <Key>
+            <PropertyRef Name="PreId" />
+          </Key>
+          <Property Name="PreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PreferenceCategory" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblProj_Task">
+          <Key>
+            <PropertyRef Name="ProjId" />
+            <PropertyRef Name="WeekId" />
+            <PropertyRef Name="TaskId" />
+            <PropertyRef Name="InternId" />
+          </Key>
+          <Property Name="ProjId" Type="int" Nullable="false" />
+          <Property Name="WeekId" Type="int" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="TaskDes" Type="nvarchar" MaxLength="250" />
+          <Property Name="Status" Type="int" />
+          <Property Name="InternId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'myDB.dbo.tblProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjId" />
+          </Key>
+          <Property Name="ProjId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="WasDeleted" Type="bit" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblSubMenu">
+          <Key>
+            <PropertyRef Name="SubId" />
+          </Key>
+          <Property Name="SubId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubMenu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="50" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" />
+          <Property Name="MainMenuId" Type="int" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblSubMenu_tblMainMenu">
+          <End Role="tblMainMenu" Type="Self.tblMainMenu" Multiplicity="0..1" />
+          <End Role="tblSubMenu" Type="Self.tblSubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMainMenu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="tblSubMenu">
+              <PropertyRef Name="MainMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubMenu_tblRoles">
+          <End Role="tblRoles" Type="Self.tblRoles" Multiplicity="0..1" />
+          <End Role="tblSubMenu" Type="Self.tblSubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblSubMenu">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblRoles">
+          <End Role="tblRoles" Type="Self.tblRoles" Multiplicity="1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Comment" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="InternId" Type="int" Mode="In" />
+          <Parameter Name="DateTime" Type="datetime" Mode="In" />
+          <Parameter Name="ProjectId" Type="int" Mode="In" />
+          <Parameter Name="WeekId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddFileDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="int" Mode="In" />
+          <Parameter Name="FileName" Type="varchar" Mode="In" />
+          <Parameter Name="FileContent" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="checkPreferenceSettingsById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CreateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="roleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteIntern" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteMentor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditIntern" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="nvarchar" Mode="In" />
+          <Parameter Name="FName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contact" Type="nvarchar" Mode="In" />
+          <Parameter Name="Qualification" Type="nvarchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditMentor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MentorId" Type="nvarchar" Mode="In" />
+          <Parameter Name="FName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contact" Type="nvarchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditMentortbl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="FName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="MName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="EditProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProjectName" Type="nvarchar" Mode="In" />
+          <Parameter Name="StartDate" Type="date" Mode="In" />
+          <Parameter Name="EndDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="EdittblInternInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="InternId" Type="int" Mode="In" />
+          <Parameter Name="ProjRole" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="getAllAssignedInternInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getAllAssignedMentor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getAllInternByMentorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mentorId" Type="int" Mode="In" />
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getAllPreferences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getAllProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAssignedMentorByProjId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAssignedTaskById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="prefId" Type="int" Mode="In" />
+          <Parameter Name="weekId" Type="int" Mode="In" />
+          <Parameter Name="AssignedBy" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="getComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mentorid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getCommentByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="int" Mode="In" />
+          <Parameter Name="ProjectId" Type="int" Mode="In" />
+          <Parameter Name="WeekId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetFileDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getIntern" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getInternById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getInternByIdFromInternInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getInternByIdFromtblInternInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getInternByProjId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetInternstoPublish" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="PrefId" Type="int" Mode="In" />
+          <Parameter Name="mentorId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetMaxInternId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="GetMaxMentorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="GetMaxProjectId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="getMentor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getMentorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getMentorByProjId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetMentortoNotify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getProjecTaskDetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getProjectById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProjectByMentorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MentorId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getProjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getUnreadComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MentorId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertIntern" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="nvarchar" Mode="In" />
+          <Parameter Name="FName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contact" Type="nvarchar" Mode="In" />
+          <Parameter Name="Qualification" Type="nvarchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertMentor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MentorId" Type="nvarchar" Mode="In" />
+          <Parameter Name="FName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contact" Type="nvarchar" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjectName" Type="nvarchar" Mode="In" />
+          <Parameter Name="StartDate" Type="date" Mode="In" />
+          <Parameter Name="EndDate" Type="date" Mode="In" />
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="WasDeleted" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="InsertPublishedTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="WeekId" Type="int" Mode="In" />
+          <Parameter Name="TaskId" Type="int" Mode="In" />
+          <Parameter Name="TaskDes" Type="nvarchar" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="In" />
+          <Parameter Name="InternId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SaveAssignedTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="prefId" Type="int" Mode="In" />
+          <Parameter Name="weekId" Type="int" Mode="In" />
+          <Parameter Name="TaskDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="AssignedBy" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SaveFeedback" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InternId" Type="int" Mode="In" />
+          <Parameter Name="ProjectId" Type="int" Mode="In" />
+          <Parameter Name="WeekId" Type="int" Mode="In" />
+          <Parameter Name="feedback" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SqlQueryNotificationStoredProcedure_06c4c1e1_06c3_4d9d_ab7f_e04bf6bdec1c" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-06c4c1e1-06c3-4d9d-ab7f-e04bf6bdec1c" />
+        <Function Name="SqlQueryNotificationStoredProcedure_06cefa11_d88f_436b_90f1_8201e098c677" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-06cefa11-d88f-436b-90f1-8201e098c677" />
+        <Function Name="SqlQueryNotificationStoredProcedure_09b2dc64_7723_4509_8830_51ec763d987d" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-09b2dc64-7723-4509-8830-51ec763d987d" />
+        <Function Name="SqlQueryNotificationStoredProcedure_0b41d29b_1fe9_4d0f_8ad9_a02910dccba3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-0b41d29b-1fe9-4d0f-8ad9-a02910dccba3" />
+        <Function Name="SqlQueryNotificationStoredProcedure_0e965a7f_8167_49e1_946a_841823b4fbe0" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-0e965a7f-8167-49e1-946a-841823b4fbe0" />
+        <Function Name="SqlQueryNotificationStoredProcedure_0fb05f8b_1913_4584_ac75_46cb78e807c1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-0fb05f8b-1913-4584-ac75-46cb78e807c1" />
+        <Function Name="SqlQueryNotificationStoredProcedure_11a68e49_b851_430d_aa7f_c3ff0a43554d" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-11a68e49-b851-430d-aa7f-c3ff0a43554d" />
+        <Function Name="SqlQueryNotificationStoredProcedure_13b30df6_4852_43fb_ad4c_fadc8135b660" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-13b30df6-4852-43fb-ad4c-fadc8135b660" />
+        <Function Name="SqlQueryNotificationStoredProcedure_18f19aee_8642_4ea5_ac96_18f65375f8db" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-18f19aee-8642-4ea5-ac96-18f65375f8db" />
+        <Function Name="SqlQueryNotificationStoredProcedure_1db29c25_92c7_4dc4_b152_fda2a75f216b" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-1db29c25-92c7-4dc4-b152-fda2a75f216b" />
+        <Function Name="SqlQueryNotificationStoredProcedure_1efdd52c_1618_43c5_9bef_bcab29db99bc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-1efdd52c-1618-43c5-9bef-bcab29db99bc" />
+        <Function Name="SqlQueryNotificationStoredProcedure_2141d348_47ff_454b_9d6d_b183a7ca07ee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-2141d348-47ff-454b-9d6d-b183a7ca07ee" />
+        <Function Name="SqlQueryNotificationStoredProcedure_220e75f7_03b8_443c_bfc4_91bb14b5ab37" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-220e75f7-03b8-443c-bfc4-91bb14b5ab37" />
+        <Function Name="SqlQueryNotificationStoredProcedure_23637453_9a2e_4637_9cbf_a1393828a857" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-23637453-9a2e-4637-9cbf-a1393828a857" />
+        <Function Name="SqlQueryNotificationStoredProcedure_2479b760_3ce4_41bb_8d9b_9819be177838" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-2479b760-3ce4-41bb-8d9b-9819be177838" />
+        <Function Name="SqlQueryNotificationStoredProcedure_2c047e91_5746_4de8_a4f5_938770b933ef" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-2c047e91-5746-4de8-a4f5-938770b933ef" />
+        <Function Name="SqlQueryNotificationStoredProcedure_2cad817b_f2b6_47f6_b3d8_e62afcd61edc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-2cad817b-f2b6-47f6-b3d8-e62afcd61edc" />
+        <Function Name="SqlQueryNotificationStoredProcedure_30eff600_d33f_4e2f_b085_67fe984e0a35" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-30eff600-d33f-4e2f-b085-67fe984e0a35" />
+        <Function Name="SqlQueryNotificationStoredProcedure_361f1e55_0f61_4011_8936_90b113fefe5b" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-361f1e55-0f61-4011-8936-90b113fefe5b" />
+        <Function Name="SqlQueryNotificationStoredProcedure_36784be2_8d3c_4c7f_8c12_344c1e62533b" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-36784be2-8d3c-4c7f-8c12-344c1e62533b" />
+        <Function Name="SqlQueryNotificationStoredProcedure_381073a5_50a2_4d28_ae88_63c6fda34629" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-381073a5-50a2-4d28-ae88-63c6fda34629" />
+        <Function Name="SqlQueryNotificationStoredProcedure_383670ca_0541_4ce7_9c83_7a13c85a7b15" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-383670ca-0541-4ce7-9c83-7a13c85a7b15" />
+        <Function Name="SqlQueryNotificationStoredProcedure_3c600f7a_6557_4eb0_b20c_141b5d2e688c" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-3c600f7a-6557-4eb0-b20c-141b5d2e688c" />
+        <Function Name="SqlQueryNotificationStoredProcedure_3db12666_49ed_4d6f_843b_5abdc79aa322" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-3db12666-49ed-4d6f-843b-5abdc79aa322" />
+        <Function Name="SqlQueryNotificationStoredProcedure_45c92708_35e9_42a2_a1e9_3467be718556" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-45c92708-35e9-42a2-a1e9-3467be718556" />
+        <Function Name="SqlQueryNotificationStoredProcedure_4ad25557_377f_44ca_a2b4_a563f45e928d" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-4ad25557-377f-44ca-a2b4-a563f45e928d" />
+        <Function Name="SqlQueryNotificationStoredProcedure_4bdefe67_d0d9_45a9_b1f3_e67366dca0b6" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-4bdefe67-d0d9-45a9-b1f3-e67366dca0b6" />
+        <Function Name="SqlQueryNotificationStoredProcedure_4c4c1455_2c0c_49f0_8812_776e3e798a93" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-4c4c1455-2c0c-49f0-8812-776e3e798a93" />
+        <Function Name="SqlQueryNotificationStoredProcedure_5109768f_639c_49dd_9384_ab422ff02eb2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-5109768f-639c-49dd-9384-ab422ff02eb2" />
+        <Function Name="SqlQueryNotificationStoredProcedure_52a278d2_8df0_4d0d_b78a_1419765960eb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-52a278d2-8df0-4d0d-b78a-1419765960eb" />
+        <Function Name="SqlQueryNotificationStoredProcedure_52b0a68c_cb5a_4e6e_9962_cf6d3b3d3373" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-52b0a68c-cb5a-4e6e-9962-cf6d3b3d3373" />
+        <Function Name="SqlQueryNotificationStoredProcedure_534c902e_05a2_45de_805e_00a77d38954f" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-534c902e-05a2-45de-805e-00a77d38954f" />
+        <Function Name="SqlQueryNotificationStoredProcedure_53812da4_7884_4fdd_928f_453b6a56d803" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-53812da4-7884-4fdd-928f-453b6a56d803" />
+        <Function Name="SqlQueryNotificationStoredProcedure_5d31bbe4_21cc_4bcf_a28b_2e22e9e18b79" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-5d31bbe4-21cc-4bcf-a28b-2e22e9e18b79" />
+        <Function Name="SqlQueryNotificationStoredProcedure_5e1a9c2d_4ace_4cda_ac21_15b89944a397" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-5e1a9c2d-4ace-4cda-ac21-15b89944a397" />
+        <Function Name="SqlQueryNotificationStoredProcedure_6317b339_f9f4_4209_9c11_7b980c252884" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-6317b339-f9f4-4209-9c11-7b980c252884" />
+        <Function Name="SqlQueryNotificationStoredProcedure_66b3e139_408c_496a_b53c_65d4ffc4e144" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-66b3e139-408c-496a-b53c-65d4ffc4e144" />
+        <Function Name="SqlQueryNotificationStoredProcedure_67807f65_ba7d_4435_88f7_1d1a77d2a674" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-67807f65-ba7d-4435-88f7-1d1a77d2a674" />
+        <Function Name="SqlQueryNotificationStoredProcedure_6a6d3dca_1d12_4ec9_9fdc_eae72fd117e1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-6a6d3dca-1d12-4ec9-9fdc-eae72fd117e1" />
+        <Function Name="SqlQueryNotificationStoredProcedure_6cad0f2d_3501_47f6_a128_eb1bbda78a53" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-6cad0f2d-3501-47f6-a128-eb1bbda78a53" />
+        <Function Name="SqlQueryNotificationStoredProcedure_6e2afd48_3d7d_4b5f_a03f_9f5ab9291106" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-6e2afd48-3d7d-4b5f-a03f-9f5ab9291106" />
+        <Function Name="SqlQueryNotificationStoredProcedure_6ec44410_116d_46de_aedc_4307551e9e25" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-6ec44410-116d-46de-aedc-4307551e9e25" />
+        <Function Name="SqlQueryNotificationStoredProcedure_6ef07e06_dc9c_406c_8350_5a5f840d395e" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-6ef07e06-dc9c-406c-8350-5a5f840d395e" />
+        <Function Name="SqlQueryNotificationStoredProcedure_6f278629_8635_4fc7_8833_568151173533" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-6f278629-8635-4fc7-8833-568151173533" />
+        <Function Name="SqlQueryNotificationStoredProcedure_74f1804a_ae8f_4cf4_9914_6074f4d79724" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-74f1804a-ae8f-4cf4-9914-6074f4d79724" />
+        <Function Name="SqlQueryNotificationStoredProcedure_77cb68e5_8871_4406_9f18_7aeff168f5c0" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-77cb68e5-8871-4406-9f18-7aeff168f5c0" />
+        <Function Name="SqlQueryNotificationStoredProcedure_787085a2_d524_4e59_a0bc_129eeae3093f" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-787085a2-d524-4e59-a0bc-129eeae3093f" />
+        <Function Name="SqlQueryNotificationStoredProcedure_78bfb9c9_73e0_4436_aa7b_4eb3128049e1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-78bfb9c9-73e0-4436-aa7b-4eb3128049e1" />
+        <Function Name="SqlQueryNotificationStoredProcedure_7bd115cf_5146_4fa6_9807_578815e51469" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-7bd115cf-5146-4fa6-9807-578815e51469" />
+        <Function Name="SqlQueryNotificationStoredProcedure_7db8b543_348c_480e_b810_341a8bcf8941" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-7db8b543-348c-480e-b810-341a8bcf8941" />
+        <Function Name="SqlQueryNotificationStoredProcedure_7eb1f0fc_d6c0_4c14_bb96_a3ee615ee766" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-7eb1f0fc-d6c0-4c14-bb96-a3ee615ee766" />
+        <Function Name="SqlQueryNotificationStoredProcedure_81f1b54a_ee20_4002_846a_62e3dd1e6725" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-81f1b54a-ee20-4002-846a-62e3dd1e6725" />
+        <Function Name="SqlQueryNotificationStoredProcedure_84877353_e157_49f5_a427_964adb3d88cb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-84877353-e157-49f5-a427-964adb3d88cb" />
+        <Function Name="SqlQueryNotificationStoredProcedure_882ef240_87b4_48df_af71_ac9215fd8760" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-882ef240-87b4-48df-af71-ac9215fd8760" />
+        <Function Name="SqlQueryNotificationStoredProcedure_8a05056e_6424_4d69_8d8a_0bc302ba82dd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-8a05056e-6424-4d69-8d8a-0bc302ba82dd" />
+        <Function Name="SqlQueryNotificationStoredProcedure_8f671638_b199_47dd_984c_f79789b8941b" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-8f671638-b199-47dd-984c-f79789b8941b" />
+        <Function Name="SqlQueryNotificationStoredProcedure_91bed3a1_03e5_4bee_96ce_33ca73263d93" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-91bed3a1-03e5-4bee-96ce-33ca73263d93" />
+        <Function Name="SqlQueryNotificationStoredProcedure_9bb1dec6_a602_4134_91d8_06802291549d" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-9bb1dec6-a602-4134-91d8-06802291549d" />
+        <Function Name="SqlQueryNotificationStoredProcedure_a327705c_d55f_4495_94aa_10bf1ddfb290" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-a327705c-d55f-4495-94aa-10bf1ddfb290" />
+        <Function Name="SqlQueryNotificationStoredProcedure_ab58305e_93f0_4e51_bed8_f7c6dc21cfe1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-ab58305e-93f0-4e51-bed8-f7c6dc21cfe1" />
+        <Function Name="SqlQueryNotificationStoredProcedure_ac49ac4e_5412_4a4f_a314_2322aa99d3d2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-ac49ac4e-5412-4a4f-a314-2322aa99d3d2" />
+        <Function Name="SqlQueryNotificationStoredProcedure_acedb4b4_4ed9_4eed_9a25_2c18e8a5e726" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-acedb4b4-4ed9-4eed-9a25-2c18e8a5e726" />
+        <Function Name="SqlQueryNotificationStoredProcedure_ae74030b_325b_42c4_bb14_561f82b3bc86" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-ae74030b-325b-42c4-bb14-561f82b3bc86" />
+        <Function Name="SqlQueryNotificationStoredProcedure_ae942c8d_3870_4ac5_84a4_61d82af23862" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-ae942c8d-3870-4ac5-84a4-61d82af23862" />
+        <Function Name="SqlQueryNotificationStoredProcedure_afbec480_77e3_410b_85c0_369d95b77c4a" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-afbec480-77e3-410b-85c0-369d95b77c4a" />
+        <Function Name="SqlQueryNotificationStoredProcedure_b25cf83e_ec42_4f0c_9878_c40bf21239ea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-b25cf83e-ec42-4f0c-9878-c40bf21239ea" />
+        <Function Name="SqlQueryNotificationStoredProcedure_b41ebfa2_8fd4_4816_af50_503a43afa8d1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-b41ebfa2-8fd4-4816-af50-503a43afa8d1" />
+        <Function Name="SqlQueryNotificationStoredProcedure_b55a842e_df7f_43aa_b2bf_90fe414c5764" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-b55a842e-df7f-43aa-b2bf-90fe414c5764" />
+        <Function Name="SqlQueryNotificationStoredProcedure_b9bf5e6b_dc62_493c_95e5_2fea72629ce2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-b9bf5e6b-dc62-493c-95e5-2fea72629ce2" />
+        <Function Name="SqlQueryNotificationStoredProcedure_beeeeb18_78db_4630_a85a_70365537ff64" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-beeeeb18-78db-4630-a85a-70365537ff64" />
+        <Function Name="SqlQueryNotificationStoredProcedure_c1909edc_6042_45d8_8ac3_758268f3df88" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-c1909edc-6042-45d8-8ac3-758268f3df88" />
+        <Function Name="SqlQueryNotificationStoredProcedure_c40299ee_beef_4a10_99d1_4b46697892b8" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-c40299ee-beef-4a10-99d1-4b46697892b8" />
+        <Function Name="SqlQueryNotificationStoredProcedure_c8d3ad3a_b326_478a_bd62_4f41f6c3fea2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-c8d3ad3a-b326-478a-bd62-4f41f6c3fea2" />
+        <Function Name="SqlQueryNotificationStoredProcedure_caafb9c3_30fc_499e_9d33_7de68f9be7eb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-caafb9c3-30fc-499e-9d33-7de68f9be7eb" />
+        <Function Name="SqlQueryNotificationStoredProcedure_cb572faf_3060_4629_b5a2_cac85cf197b0" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-cb572faf-3060-4629-b5a2-cac85cf197b0" />
+        <Function Name="SqlQueryNotificationStoredProcedure_d067ee2b_b387_4f79_94b5_e6c9d768e33d" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-d067ee2b-b387-4f79-94b5-e6c9d768e33d" />
+        <Function Name="SqlQueryNotificationStoredProcedure_d57c8466_d10b_4ee8_b460_b3c27bb9d667" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-d57c8466-d10b-4ee8-b460-b3c27bb9d667" />
+        <Function Name="SqlQueryNotificationStoredProcedure_d7fdd80a_c2c4_4a02_9062_e893cf6f7470" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-d7fdd80a-c2c4-4a02-9062-e893cf6f7470" />
+        <Function Name="SqlQueryNotificationStoredProcedure_d92525bd_b44b_4b34_8694_2fb1c1bdaf89" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-d92525bd-b44b-4b34-8694-2fb1c1bdaf89" />
+        <Function Name="SqlQueryNotificationStoredProcedure_d9eb2050_744a_4071_a2c0_7f2d233864a6" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-d9eb2050-744a-4071-a2c0-7f2d233864a6" />
+        <Function Name="SqlQueryNotificationStoredProcedure_da665adb_cc57_4143_a84d_4d802deb7400" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-da665adb-cc57-4143-a84d-4d802deb7400" />
+        <Function Name="SqlQueryNotificationStoredProcedure_dc3c1fa0_48d2_42a5_bb5d_eddfc738429d" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-dc3c1fa0-48d2-42a5-bb5d-eddfc738429d" />
+        <Function Name="SqlQueryNotificationStoredProcedure_dcbfbaa3_e359_43b8_a053_73b0b3ccc911" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-dcbfbaa3-e359-43b8-a053-73b0b3ccc911" />
+        <Function Name="SqlQueryNotificationStoredProcedure_dd77b5c5_2917_40e5_8083_377e92927723" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-dd77b5c5-2917-40e5-8083-377e92927723" />
+        <Function Name="SqlQueryNotificationStoredProcedure_df792a4c_8102_4fa1_9dcc_b7b85336c854" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-df792a4c-8102-4fa1-9dcc-b7b85336c854" />
+        <Function Name="SqlQueryNotificationStoredProcedure_e0852d0e_5a04_4a1c_b5ed_689d81d246da" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-e0852d0e-5a04-4a1c-b5ed-689d81d246da" />
+        <Function Name="SqlQueryNotificationStoredProcedure_e2ffffec_1755_4317_b6ee_ee164db3f910" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-e2ffffec-1755-4317-b6ee-ee164db3f910" />
+        <Function Name="SqlQueryNotificationStoredProcedure_e476c13e_370e_40c9_97e6_949042fa7f13" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-e476c13e-370e-40c9-97e6-949042fa7f13" />
+        <Function Name="SqlQueryNotificationStoredProcedure_e5308cf5_7031_44b2_b485_0b66e7c3f19b" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-e5308cf5-7031-44b2-b485-0b66e7c3f19b" />
+        <Function Name="SqlQueryNotificationStoredProcedure_e7c4c891_c9da_4e64_833d_5e03ff509dd8" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-e7c4c891-c9da-4e64-833d-5e03ff509dd8" />
+        <Function Name="SqlQueryNotificationStoredProcedure_f09ddc0a_e606_4282_9ed9_aa5e484e6c63" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-f09ddc0a-e606-4282-9ed9-aa5e484e6c63" />
+        <Function Name="SqlQueryNotificationStoredProcedure_f33bb672_d6ae_47fb_a8c4_bb9956e22487" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-f33bb672-d6ae-47fb-a8c4-bb9956e22487" />
+        <Function Name="SqlQueryNotificationStoredProcedure_f40206df_e46f_491e_a1a3_b66d6226d52e" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-f40206df-e46f-491e-a1a3-b66d6226d52e" />
+        <Function Name="SqlQueryNotificationStoredProcedure_f4f780f6_1fc4_4009_8409_e020a0ba0feb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-f4f780f6-1fc4-4009-8409-e020a0ba0feb" />
+        <Function Name="SqlQueryNotificationStoredProcedure_f584042d_3b88_4562_88b4_a91ad868c0a1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-f584042d-3b88-4562-88b4-a91ad868c0a1" />
+        <Function Name="SqlQueryNotificationStoredProcedure_f5fdf379_4d81_4e4c_8ffe_431c28bf8ca8" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-f5fdf379-4d81-4e4c-8ffe-431c28bf8ca8" />
+        <Function Name="SqlQueryNotificationStoredProcedure_f61c0aba_2966_44e4_b0a0_efd158a5a7ff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-f61c0aba-2966-44e4-b0a0-efd158a5a7ff" />
+        <Function Name="SqlQueryNotificationStoredProcedure_fbd2c2a2_39fb_4b6b_9b86_dd872b6dc41c" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-fbd2c2a2-39fb-4b6b-9b86-dd872b6dc41c" />
+        <Function Name="SqlQueryNotificationStoredProcedure_ff04da2d_86ca_4c27_b6e2_782c72700107" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="SqlQueryNotificationStoredProcedure-ff04da2d-86ca-4c27-b6e2-782c72700107" />
+        <Function Name="UpdateAssignedTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjId" Type="int" Mode="In" />
+          <Parameter Name="prefId" Type="int" Mode="In" />
+          <Parameter Name="weekId" Type="int" Mode="In" />
+          <Parameter Name="TaskDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="AssignedBy" Type="nvarchar" Mode="In" />
+          <Parameter Name="TaskId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Comment" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="InternId" Type="int" Mode="In" />
+          <Parameter Name="DateTime" Type="datetime" Mode="In" />
+          <Parameter Name="ProjectId" Type="int" Mode="In" />
+          <Parameter Name="WeekId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateIsPublished" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateIsRead" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cmtId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdatePreference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internId" Type="int" Mode="In" />
+          <Parameter Name="prefId" Type="int" Mode="In" />
+          <Parameter Name="projrole" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="updateTaskStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internId" Type="int" Mode="In" />
+          <Parameter Name="taskId" Type="int" Mode="In" />
+          <Parameter Name="weekId" Type="int" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="verifyLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="myDBModel1StoreContainer">
+          <EntitySet Name="tblAssignedTask" EntityType="Self.tblAssignedTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblComment" EntityType="Self.tblComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblInternInfo" EntityType="Self.tblInternInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMainMenu" EntityType="Self.tblMainMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMentorInfo" EntityType="Self.tblMentorInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPreference" EntityType="Self.tblPreference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProj_Task" EntityType="Self.tblProj_Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRoles" EntityType="Self.tblRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSubMenu" EntityType="Self.tblSubMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileDetails" EntityType="Self.FileDetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FileDetails].[Id] AS [Id], 
+    [FileDetails].[InternId] AS [InternId], 
+    [FileDetails].[FileName] AS [FileName], 
+    [FileDetails].[FileContent] AS [FileContent]
+    FROM [dbo].[FileDetails] AS [FileDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tblProject" EntityType="Self.tblProject" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblProject].[ProjId] AS [ProjId], 
+    [tblProject].[ProjectName] AS [ProjectName], 
+    [tblProject].[StartDate] AS [StartDate], 
+    [tblProject].[EndDate] AS [EndDate], 
+    [tblProject].[WasDeleted] AS [WasDeleted], 
+    [tblProject].[Status] AS [Status]
+    FROM [dbo].[tblProject] AS [tblProject]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblSubMenu_tblMainMenu" Association="Self.FK_tblSubMenu_tblMainMenu">
+            <End Role="tblMainMenu" EntitySet="tblMainMenu" />
+            <End Role="tblSubMenu" EntitySet="tblSubMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubMenu_tblRoles" Association="Self.FK_tblSubMenu_tblRoles">
+            <End Role="tblRoles" EntitySet="tblRoles" />
+            <End Role="tblSubMenu" EntitySet="tblSubMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblRoles" Association="Self.FK_tblUser_tblRoles">
+            <End Role="tblRoles" EntitySet="tblRoles" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="myDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAssignedTask">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="PrefId" Type="Int32" />
+          <Property Name="WeekId" Type="Int32" />
+          <Property Name="TaskDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsPublished" Type="Boolean" />
+          <Property Name="AssignedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssignedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="tblComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedOn" Type="DateTime" Precision="3" />
+          <Property Name="InternId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="WeekId" Type="Int32" />
+          <Property Name="IsRead" Type="Boolean" />
+          <Property Name="Feedback" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblInternInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="InternId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qualification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PreId" Type="Int32" />
+          <Property Name="ProjId" Type="Int32" />
+          <Property Name="ProjRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblMainMenu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainMenu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblSubMenus" Relationship="Self.FK_tblSubMenu_tblMainMenu" FromRole="tblMainMenu" ToRole="tblSubMenu" />
+        </EntityType>
+        <EntityType Name="tblMentorInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MentorId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblPreference">
+          <Key>
+            <PropertyRef Name="PreId" />
+          </Key>
+          <Property Name="PreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PreferenceCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblProj_Task">
+          <Key>
+            <PropertyRef Name="ProjId" />
+            <PropertyRef Name="WeekId" />
+            <PropertyRef Name="TaskId" />
+            <PropertyRef Name="InternId" />
+          </Key>
+          <Property Name="ProjId" Type="Int32" Nullable="false" />
+          <Property Name="WeekId" Type="Int32" Nullable="false" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="TaskDes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="InternId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblSubMenus" Relationship="Self.FK_tblSubMenu_tblRoles" FromRole="tblRoles" ToRole="tblSubMenu" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUser_tblRoles" FromRole="tblRoles" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblSubMenu">
+          <Key>
+            <PropertyRef Name="SubId" />
+          </Key>
+          <Property Name="SubId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubMenu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MainMenuId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="tblMainMenu" Relationship="Self.FK_tblSubMenu_tblMainMenu" FromRole="tblSubMenu" ToRole="tblMainMenu" />
+          <NavigationProperty Name="tblRole" Relationship="Self.FK_tblSubMenu_tblRoles" FromRole="tblSubMenu" ToRole="tblRoles" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRoles" FromRole="tblUser" ToRole="tblRoles" />
+        </EntityType>
+        <EntityType Name="FileDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="InternId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InternId" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjId" />
+          </Key>
+          <Property Name="ProjId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="WasDeleted" Type="Boolean" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_tblSubMenu_tblMainMenu">
+          <End Role="tblMainMenu" Type="Self.tblMainMenu" Multiplicity="0..1" />
+          <End Role="tblSubMenu" Type="Self.tblSubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMainMenu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="tblSubMenu">
+              <PropertyRef Name="MainMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSubMenu_tblRoles">
+          <End Role="tblRoles" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblSubMenu" Type="Self.tblSubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblSubMenu">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblRoles">
+          <End Role="tblRoles" Type="Self.tblRole" Multiplicity="1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="myEIMSEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAssignedTasks" EntityType="Self.tblAssignedTask" />
+          <EntitySet Name="tblComments" EntityType="Self.tblComment" />
+          <EntitySet Name="tblInternInfoes" EntityType="Self.tblInternInfo" />
+          <EntitySet Name="tblMainMenus" EntityType="Self.tblMainMenu" />
+          <EntitySet Name="tblMentorInfoes" EntityType="Self.tblMentorInfo" />
+          <EntitySet Name="tblPreferences" EntityType="Self.tblPreference" />
+          <EntitySet Name="tblProj_Task" EntityType="Self.tblProj_Task" />
+          <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
+          <EntitySet Name="tblSubMenus" EntityType="Self.tblSubMenu" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <EntitySet Name="FileDetails" EntityType="Self.FileDetail" />
+          <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
+          <AssociationSet Name="FK_tblSubMenu_tblMainMenu" Association="Self.FK_tblSubMenu_tblMainMenu">
+            <End Role="tblMainMenu" EntitySet="tblMainMenus" />
+            <End Role="tblSubMenu" EntitySet="tblSubMenus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSubMenu_tblRoles" Association="Self.FK_tblSubMenu_tblRoles">
+            <End Role="tblRoles" EntitySet="tblRoles" />
+            <End Role="tblSubMenu" EntitySet="tblSubMenus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblRoles" Association="Self.FK_tblUser_tblRoles">
+            <End Role="tblRoles" EntitySet="tblRoles" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+          <FunctionImport Name="AddComment">
+            <Parameter Name="Comment" Mode="In" Type="String" />
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+            <Parameter Name="DateTime" Mode="In" Type="DateTime" />
+            <Parameter Name="ProjectId" Mode="In" Type="Int32" />
+            <Parameter Name="WeekId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddFileDetails">
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+            <Parameter Name="FileName" Mode="In" Type="String" />
+            <Parameter Name="FileContent" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="checkPreferenceSettingsById" ReturnType="Collection(Int32)">
+            <Parameter Name="internId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CreateUser">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="roleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteIntern">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteMentor">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProject">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteTask">
+            <Parameter Name="taskId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditIntern">
+            <Parameter Name="InternId" Mode="In" Type="String" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="MName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Contact" Mode="In" Type="String" />
+            <Parameter Name="Qualification" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditMentor">
+            <Parameter Name="MentorId" Mode="In" Type="String" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="MName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Contact" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditMentortbl">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="MName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EditProject">
+            <Parameter Name="ProjId" Mode="In" Type="String" />
+            <Parameter Name="ProjectName" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="EdittblInternInfo">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+            <Parameter Name="ProjRole" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getAllAssignedInternInfo" ReturnType="Collection(myDBModel1.getAllAssignedInternInfo_Result)">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getAllAssignedMentor" ReturnType="Collection(myDBModel1.getAllAssignedMentor_Result)" />
+          <FunctionImport Name="getAllInternByMentorId" ReturnType="Collection(myDBModel1.getAllInternByMentorId_Result)">
+            <Parameter Name="mentorId" Mode="In" Type="Int32" />
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getAllPreferences" ReturnType="Collection(myDBModel1.getAllPreferences_Result)" />
+          <FunctionImport Name="getAllProject" ReturnType="Collection(myDBModel1.getAllProject_Result)" />
+          <FunctionImport Name="GetAssignedMentorByProjId" ReturnType="Collection(myDBModel1.GetAssignedMentorByProjId_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAssignedTaskById" ReturnType="Collection(myDBModel1.GetAssignedTaskById_Result)">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="prefId" Mode="In" Type="Int32" />
+            <Parameter Name="weekId" Mode="In" Type="Int32" />
+            <Parameter Name="AssignedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getComment" ReturnType="Collection(myDBModel1.getComment_Result)">
+            <Parameter Name="mentorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getCommentByID" ReturnType="Collection(myDBModel1.getCommentByID_Result)">
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+            <Parameter Name="ProjectId" Mode="In" Type="Int32" />
+            <Parameter Name="WeekId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetFileDetails" ReturnType="Collection(myDBModel1.GetFileDetails_Result)">
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getIntern" ReturnType="Collection(myDBModel1.getIntern_Result)" />
+          <FunctionImport Name="getInternById" ReturnType="Collection(myDBModel1.getInternById_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getInternByIdFromInternInfo" ReturnType="Collection(myDBModel1.getInternByIdFromInternInfo_Result)">
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getInternByIdFromtblInternInfo" ReturnType="Collection(myDBModel1.getInternByIdFromtblInternInfo_Result)">
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getInternByProjId" ReturnType="Collection(myDBModel1.getInternByProjId_Result)" />
+          <FunctionImport Name="GetInternstoPublish" ReturnType="Collection(Int32)">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="PrefId" Mode="In" Type="Int32" />
+            <Parameter Name="mentorId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMaxInternId">
+            <Parameter Name="Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMaxMentorId">
+            <Parameter Name="Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMaxProjectId">
+            <Parameter Name="Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getMentor" ReturnType="Collection(myDBModel1.getMentor_Result)" />
+          <FunctionImport Name="getMentorById" ReturnType="Collection(myDBModel1.getMentorById_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getMentorByProjId" ReturnType="Collection(myDBModel1.getMentorByProjId_Result)" />
+          <FunctionImport Name="GetMentortoNotify" ReturnType="Collection(Int32)">
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getProjecTaskDetById" ReturnType="Collection(myDBModel1.getProjecTaskDetById_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getProjectById" ReturnType="Collection(myDBModel1.getProjectById_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProjectByMentorId" ReturnType="Collection(myDBModel1.GetProjectByMentorId_Result)">
+            <Parameter Name="MentorId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getProjects" ReturnType="Collection(myDBModel1.getProjects_Result)" />
+          <FunctionImport Name="getRoles" ReturnType="Collection(myDBModel1.getRoles_Result)" />
+          <FunctionImport Name="getUnreadComment" ReturnType="Collection(myDBModel1.getUnreadComment_Result)">
+            <Parameter Name="MentorId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertIntern">
+            <Parameter Name="InternId" Mode="In" Type="String" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="MName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Contact" Mode="In" Type="String" />
+            <Parameter Name="Qualification" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertMentor">
+            <Parameter Name="MentorId" Mode="In" Type="String" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="MName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Contact" Mode="In" Type="String" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertProject">
+            <Parameter Name="ProjectName" Mode="In" Type="String" />
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="WasDeleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="InsertPublishedTask">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="WeekId" Mode="In" Type="Int32" />
+            <Parameter Name="TaskId" Mode="In" Type="Int32" />
+            <Parameter Name="TaskDes" Mode="In" Type="String" />
+            <Parameter Name="Status" Mode="In" Type="Int32" />
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SaveAssignedTask">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="prefId" Mode="In" Type="Int32" />
+            <Parameter Name="weekId" Mode="In" Type="Int32" />
+            <Parameter Name="TaskDesc" Mode="In" Type="String" />
+            <Parameter Name="AssignedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SaveFeedback">
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+            <Parameter Name="ProjectId" Mode="In" Type="Int32" />
+            <Parameter Name="WeekId" Mode="In" Type="Int32" />
+            <Parameter Name="feedback" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_06c4c1e1_06c3_4d9d_ab7f_e04bf6bdec1c" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_06cefa11_d88f_436b_90f1_8201e098c677" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_09b2dc64_7723_4509_8830_51ec763d987d" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_0b41d29b_1fe9_4d0f_8ad9_a02910dccba3" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_0e965a7f_8167_49e1_946a_841823b4fbe0" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_0fb05f8b_1913_4584_ac75_46cb78e807c1" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_11a68e49_b851_430d_aa7f_c3ff0a43554d" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_13b30df6_4852_43fb_ad4c_fadc8135b660" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_18f19aee_8642_4ea5_ac96_18f65375f8db" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_1db29c25_92c7_4dc4_b152_fda2a75f216b" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_1efdd52c_1618_43c5_9bef_bcab29db99bc" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_2141d348_47ff_454b_9d6d_b183a7ca07ee" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_220e75f7_03b8_443c_bfc4_91bb14b5ab37" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_23637453_9a2e_4637_9cbf_a1393828a857" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_2479b760_3ce4_41bb_8d9b_9819be177838" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_2c047e91_5746_4de8_a4f5_938770b933ef" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_2cad817b_f2b6_47f6_b3d8_e62afcd61edc" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_30eff600_d33f_4e2f_b085_67fe984e0a35" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_361f1e55_0f61_4011_8936_90b113fefe5b" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_36784be2_8d3c_4c7f_8c12_344c1e62533b" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_381073a5_50a2_4d28_ae88_63c6fda34629" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_383670ca_0541_4ce7_9c83_7a13c85a7b15" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_3c600f7a_6557_4eb0_b20c_141b5d2e688c" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_3db12666_49ed_4d6f_843b_5abdc79aa322" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_45c92708_35e9_42a2_a1e9_3467be718556" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_4ad25557_377f_44ca_a2b4_a563f45e928d" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_4bdefe67_d0d9_45a9_b1f3_e67366dca0b6" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_4c4c1455_2c0c_49f0_8812_776e3e798a93" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_5109768f_639c_49dd_9384_ab422ff02eb2" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_52a278d2_8df0_4d0d_b78a_1419765960eb" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_52b0a68c_cb5a_4e6e_9962_cf6d3b3d3373" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_534c902e_05a2_45de_805e_00a77d38954f" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_53812da4_7884_4fdd_928f_453b6a56d803" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_5d31bbe4_21cc_4bcf_a28b_2e22e9e18b79" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_5e1a9c2d_4ace_4cda_ac21_15b89944a397" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_6317b339_f9f4_4209_9c11_7b980c252884" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_66b3e139_408c_496a_b53c_65d4ffc4e144" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_67807f65_ba7d_4435_88f7_1d1a77d2a674" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_6a6d3dca_1d12_4ec9_9fdc_eae72fd117e1" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_6cad0f2d_3501_47f6_a128_eb1bbda78a53" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_6e2afd48_3d7d_4b5f_a03f_9f5ab9291106" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_6ec44410_116d_46de_aedc_4307551e9e25" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_6ef07e06_dc9c_406c_8350_5a5f840d395e" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_6f278629_8635_4fc7_8833_568151173533" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_74f1804a_ae8f_4cf4_9914_6074f4d79724" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_77cb68e5_8871_4406_9f18_7aeff168f5c0" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_787085a2_d524_4e59_a0bc_129eeae3093f" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_78bfb9c9_73e0_4436_aa7b_4eb3128049e1" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_7bd115cf_5146_4fa6_9807_578815e51469" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_7db8b543_348c_480e_b810_341a8bcf8941" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_7eb1f0fc_d6c0_4c14_bb96_a3ee615ee766" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_81f1b54a_ee20_4002_846a_62e3dd1e6725" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_84877353_e157_49f5_a427_964adb3d88cb" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_882ef240_87b4_48df_af71_ac9215fd8760" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_8a05056e_6424_4d69_8d8a_0bc302ba82dd" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_8f671638_b199_47dd_984c_f79789b8941b" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_91bed3a1_03e5_4bee_96ce_33ca73263d93" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_9bb1dec6_a602_4134_91d8_06802291549d" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_a327705c_d55f_4495_94aa_10bf1ddfb290" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_ab58305e_93f0_4e51_bed8_f7c6dc21cfe1" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_ac49ac4e_5412_4a4f_a314_2322aa99d3d2" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_acedb4b4_4ed9_4eed_9a25_2c18e8a5e726" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_ae74030b_325b_42c4_bb14_561f82b3bc86" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_ae942c8d_3870_4ac5_84a4_61d82af23862" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_afbec480_77e3_410b_85c0_369d95b77c4a" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_b25cf83e_ec42_4f0c_9878_c40bf21239ea" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_b41ebfa2_8fd4_4816_af50_503a43afa8d1" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_b55a842e_df7f_43aa_b2bf_90fe414c5764" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_b9bf5e6b_dc62_493c_95e5_2fea72629ce2" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_beeeeb18_78db_4630_a85a_70365537ff64" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_c1909edc_6042_45d8_8ac3_758268f3df88" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_c40299ee_beef_4a10_99d1_4b46697892b8" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_c8d3ad3a_b326_478a_bd62_4f41f6c3fea2" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_caafb9c3_30fc_499e_9d33_7de68f9be7eb" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_cb572faf_3060_4629_b5a2_cac85cf197b0" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_d067ee2b_b387_4f79_94b5_e6c9d768e33d" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_d57c8466_d10b_4ee8_b460_b3c27bb9d667" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_d7fdd80a_c2c4_4a02_9062_e893cf6f7470" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_d92525bd_b44b_4b34_8694_2fb1c1bdaf89" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_d9eb2050_744a_4071_a2c0_7f2d233864a6" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_da665adb_cc57_4143_a84d_4d802deb7400" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_dc3c1fa0_48d2_42a5_bb5d_eddfc738429d" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_dcbfbaa3_e359_43b8_a053_73b0b3ccc911" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_dd77b5c5_2917_40e5_8083_377e92927723" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_df792a4c_8102_4fa1_9dcc_b7b85336c854" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_e0852d0e_5a04_4a1c_b5ed_689d81d246da" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_e2ffffec_1755_4317_b6ee_ee164db3f910" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_e476c13e_370e_40c9_97e6_949042fa7f13" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_e5308cf5_7031_44b2_b485_0b66e7c3f19b" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_e7c4c891_c9da_4e64_833d_5e03ff509dd8" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_f09ddc0a_e606_4282_9ed9_aa5e484e6c63" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_f33bb672_d6ae_47fb_a8c4_bb9956e22487" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_f40206df_e46f_491e_a1a3_b66d6226d52e" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_f4f780f6_1fc4_4009_8409_e020a0ba0feb" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_f584042d_3b88_4562_88b4_a91ad868c0a1" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_f5fdf379_4d81_4e4c_8ffe_431c28bf8ca8" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_f61c0aba_2966_44e4_b0a0_efd158a5a7ff" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_fbd2c2a2_39fb_4b6b_9b86_dd872b6dc41c" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="SqlQueryNotificationStoredProcedure_ff04da2d_86ca_4c27_b6e2_782c72700107" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="UpdateAssignedTask">
+            <Parameter Name="ProjId" Mode="In" Type="Int32" />
+            <Parameter Name="prefId" Mode="In" Type="Int32" />
+            <Parameter Name="weekId" Mode="In" Type="Int32" />
+            <Parameter Name="TaskDesc" Mode="In" Type="String" />
+            <Parameter Name="AssignedBy" Mode="In" Type="String" />
+            <Parameter Name="TaskId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateComment">
+            <Parameter Name="Comment" Mode="In" Type="String" />
+            <Parameter Name="InternId" Mode="In" Type="Int32" />
+            <Parameter Name="DateTime" Mode="In" Type="DateTime" />
+            <Parameter Name="ProjectId" Mode="In" Type="Int32" />
+            <Parameter Name="WeekId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateIsPublished">
+            <Parameter Name="taskId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateIsRead">
+            <Parameter Name="cmtId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdatePreference">
+            <Parameter Name="internId" Mode="In" Type="Int32" />
+            <Parameter Name="prefId" Mode="In" Type="Int32" />
+            <Parameter Name="projrole" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updateTaskStatus">
+            <Parameter Name="internId" Mode="In" Type="Int32" />
+            <Parameter Name="taskId" Mode="In" Type="Int32" />
+            <Parameter Name="weekId" Mode="In" Type="Int32" />
+            <Parameter Name="Status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUser">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="verifyLogin" ReturnType="Collection(myDBModel1.verifyLogin_Result)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="getAllAssignedInternInfo_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PreId" Nullable="true" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+          <Property Type="String" Name="ProjRole" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getAllAssignedMentor_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MentorId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getAllInternByMentorId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PreId" Nullable="true" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+          <Property Type="String" Name="ProjRole" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PreferenceCategory" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getAllPreferences_Result">
+          <Property Type="Int32" Name="PreId" Nullable="false" />
+          <Property Type="String" Name="PreferenceCategory" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getAllProject_Result">
+          <Property Type="Int32" Name="ProjId" Nullable="false" />
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" />
+          <Property Type="Boolean" Name="WasDeleted" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetAssignedMentorByProjId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MentorId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAssignedTaskById_Result">
+          <Property Type="Int32" Name="TaskId" Nullable="false" />
+          <Property Type="Int32" Name="ProjectId" Nullable="true" />
+          <Property Type="Int32" Name="PrefId" Nullable="true" />
+          <Property Type="Int32" Name="WeekId" Nullable="true" />
+          <Property Type="String" Name="TaskDescription" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="IsPublished" Nullable="true" />
+          <Property Type="String" Name="AssignedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="AssignedDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getComment_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="DateTime" Name="AddedOn" Nullable="true" Precision="23" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjectId" Nullable="true" />
+          <Property Type="Int32" Name="WeekId" Nullable="true" />
+          <Property Type="Boolean" Name="IsRead" Nullable="true" />
+          <Property Type="String" Name="Feedback" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="getCommentByID_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="DateTime" Name="AddedOn" Nullable="true" Precision="23" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjectId" Nullable="true" />
+          <Property Type="Int32" Name="WeekId" Nullable="true" />
+          <Property Type="Boolean" Name="IsRead" Nullable="true" />
+          <Property Type="String" Name="Feedback" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="GetFileDetails_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="InternId" Nullable="false" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="60" />
+          <Property Type="Binary" Name="FileContent" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getIntern_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PreId" Nullable="true" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+          <Property Type="String" Name="ProjRole" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getInternById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PreId" Nullable="true" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+          <Property Type="String" Name="ProjRole" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PreferenceCategory" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getInternByIdFromInternInfo_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PreId" Nullable="true" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+          <Property Type="String" Name="ProjRole" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getInternByIdFromtblInternInfo_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PreId" Nullable="true" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+          <Property Type="String" Name="ProjRole" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getInternByProjId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PreId" Nullable="true" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+          <Property Type="String" Name="ProjRole" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getMentor_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MentorId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getMentorById_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MentorId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getMentorByProjId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MentorId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contact" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getProjecTaskDetById_Result">
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjId" Nullable="false" />
+          <Property Type="Int32" Name="WeekId" Nullable="false" />
+          <Property Type="Int32" Name="TaskId" Nullable="false" />
+          <Property Type="String" Name="TaskDes" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="Int32" Name="InternId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getProjectById_Result">
+          <Property Type="Int32" Name="ProjId" Nullable="false" />
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" />
+          <Property Type="Boolean" Name="WasDeleted" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetProjectByMentorId_Result">
+          <Property Type="Int32" Name="ProjId" Nullable="false" />
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" />
+          <Property Type="Boolean" Name="WasDeleted" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getProjects_Result">
+          <Property Type="Int32" Name="ProjId" Nullable="false" />
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" />
+          <Property Type="Boolean" Name="WasDeleted" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getRoles_Result">
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getUnreadComment_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="DateTime" Name="AddedOn" Nullable="true" Precision="23" />
+          <Property Type="String" Name="InternId" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ProjectId" Nullable="true" />
+          <Property Type="Int32" Name="WeekId" Nullable="true" />
+          <Property Type="Boolean" Name="IsRead" Nullable="true" />
+          <Property Type="String" Name="Feedback" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="verifyLogin_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="myDBModel1StoreContainer" CdmEntityContainer="myEIMSEntity">
+          <EntitySetMapping Name="tblAssignedTasks">
+            <EntityTypeMapping TypeName="myDBModel1.tblAssignedTask">
+              <MappingFragment StoreEntitySet="tblAssignedTask">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="PrefId" ColumnName="PrefId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblComments">
+            <EntityTypeMapping TypeName="myDBModel1.tblComment">
+              <MappingFragment StoreEntitySet="tblComment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInternInfoes">
+            <EntityTypeMapping TypeName="myDBModel1.tblInternInfo">
+              <MappingFragment StoreEntitySet="tblInternInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMainMenus">
+            <EntityTypeMapping TypeName="myDBModel1.tblMainMenu">
+              <MappingFragment StoreEntitySet="tblMainMenu">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="MainMenu" ColumnName="MainMenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMentorInfoes">
+            <EntityTypeMapping TypeName="myDBModel1.tblMentorInfo">
+              <MappingFragment StoreEntitySet="tblMentorInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPreferences">
+            <EntityTypeMapping TypeName="myDBModel1.tblPreference">
+              <MappingFragment StoreEntitySet="tblPreference">
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="PreferenceCategory" ColumnName="PreferenceCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProj_Task">
+            <EntityTypeMapping TypeName="myDBModel1.tblProj_Task">
+              <MappingFragment StoreEntitySet="tblProj_Task">
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="TaskDes" ColumnName="TaskDes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoles">
+            <EntityTypeMapping TypeName="myDBModel1.tblRole">
+              <MappingFragment StoreEntitySet="tblRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSubMenus">
+            <EntityTypeMapping TypeName="myDBModel1.tblSubMenu">
+              <MappingFragment StoreEntitySet="tblSubMenu">
+                <ScalarProperty Name="SubId" ColumnName="SubId" />
+                <ScalarProperty Name="SubMenu" ColumnName="SubMenu" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="MainMenuId" ColumnName="MainMenuId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="myDBModel1.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileDetails">
+            <EntityTypeMapping TypeName="myDBModel1.FileDetail">
+              <MappingFragment StoreEntitySet="FileDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjects">
+            <EntityTypeMapping TypeName="myDBModel1.tblProject">
+              <MappingFragment StoreEntitySet="tblProject">
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="WasDeleted" ColumnName="WasDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddComment" FunctionName="myDBModel1.Store.AddComment" />
+          <FunctionImportMapping FunctionImportName="AddFileDetails" FunctionName="myDBModel1.Store.AddFileDetails" />
+          <FunctionImportMapping FunctionImportName="checkPreferenceSettingsById" FunctionName="myDBModel1.Store.checkPreferenceSettingsById" />
+          <FunctionImportMapping FunctionImportName="CreateUser" FunctionName="myDBModel1.Store.CreateUser" />
+          <FunctionImportMapping FunctionImportName="DeleteIntern" FunctionName="myDBModel1.Store.DeleteIntern" />
+          <FunctionImportMapping FunctionImportName="DeleteMentor" FunctionName="myDBModel1.Store.DeleteMentor" />
+          <FunctionImportMapping FunctionImportName="DeleteProject" FunctionName="myDBModel1.Store.DeleteProject" />
+          <FunctionImportMapping FunctionImportName="DeleteTask" FunctionName="myDBModel1.Store.DeleteTask" />
+          <FunctionImportMapping FunctionImportName="EditIntern" FunctionName="myDBModel1.Store.EditIntern" />
+          <FunctionImportMapping FunctionImportName="EditMentor" FunctionName="myDBModel1.Store.EditMentor" />
+          <FunctionImportMapping FunctionImportName="EditMentortbl" FunctionName="myDBModel1.Store.EditMentortbl" />
+          <FunctionImportMapping FunctionImportName="EditProject" FunctionName="myDBModel1.Store.EditProject" />
+          <FunctionImportMapping FunctionImportName="EdittblInternInfo" FunctionName="myDBModel1.Store.EdittblInternInfo" />
+          <FunctionImportMapping FunctionImportName="getAllAssignedInternInfo" FunctionName="myDBModel1.Store.getAllAssignedInternInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getAllAssignedInternInfo_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getAllAssignedMentor" FunctionName="myDBModel1.Store.getAllAssignedMentor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getAllAssignedMentor_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getAllInternByMentorId" FunctionName="myDBModel1.Store.getAllInternByMentorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getAllInternByMentorId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+                <ScalarProperty Name="PreferenceCategory" ColumnName="PreferenceCategory" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getAllPreferences" FunctionName="myDBModel1.Store.getAllPreferences">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getAllPreferences_Result">
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="PreferenceCategory" ColumnName="PreferenceCategory" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getAllProject" FunctionName="myDBModel1.Store.getAllProject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getAllProject_Result">
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="WasDeleted" ColumnName="WasDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAssignedMentorByProjId" FunctionName="myDBModel1.Store.GetAssignedMentorByProjId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.GetAssignedMentorByProjId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAssignedTaskById" FunctionName="myDBModel1.Store.GetAssignedTaskById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.GetAssignedTaskById_Result">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="PrefId" ColumnName="PrefId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getComment" FunctionName="myDBModel1.Store.getComment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getComment_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getCommentByID" FunctionName="myDBModel1.Store.getCommentByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getCommentByID_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetFileDetails" FunctionName="myDBModel1.Store.GetFileDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.GetFileDetails_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getIntern" FunctionName="myDBModel1.Store.getIntern">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getIntern_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getInternById" FunctionName="myDBModel1.Store.getInternById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getInternById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+                <ScalarProperty Name="PreferenceCategory" ColumnName="PreferenceCategory" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getInternByIdFromInternInfo" FunctionName="myDBModel1.Store.getInternByIdFromInternInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getInternByIdFromInternInfo_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getInternByIdFromtblInternInfo" FunctionName="myDBModel1.Store.getInternByIdFromtblInternInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getInternByIdFromtblInternInfo_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getInternByProjId" FunctionName="myDBModel1.Store.getInternByProjId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getInternByProjId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="PreId" ColumnName="PreId" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjRole" ColumnName="ProjRole" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetInternstoPublish" FunctionName="myDBModel1.Store.GetInternstoPublish" />
+          <FunctionImportMapping FunctionImportName="GetMaxInternId" FunctionName="myDBModel1.Store.GetMaxInternId" />
+          <FunctionImportMapping FunctionImportName="GetMaxMentorId" FunctionName="myDBModel1.Store.GetMaxMentorId" />
+          <FunctionImportMapping FunctionImportName="GetMaxProjectId" FunctionName="myDBModel1.Store.GetMaxProjectId" />
+          <FunctionImportMapping FunctionImportName="getMentor" FunctionName="myDBModel1.Store.getMentor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getMentor_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getMentorById" FunctionName="myDBModel1.Store.getMentorById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getMentorById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getMentorByProjId" FunctionName="myDBModel1.Store.getMentorByProjId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getMentorByProjId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetMentortoNotify" FunctionName="myDBModel1.Store.GetMentortoNotify" />
+          <FunctionImportMapping FunctionImportName="getProjecTaskDetById" FunctionName="myDBModel1.Store.getProjecTaskDetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getProjecTaskDetById_Result">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="TaskDes" ColumnName="TaskDes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getProjectById" FunctionName="myDBModel1.Store.getProjectById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getProjectById_Result">
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="WasDeleted" ColumnName="WasDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetProjectByMentorId" FunctionName="myDBModel1.Store.GetProjectByMentorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.GetProjectByMentorId_Result">
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="WasDeleted" ColumnName="WasDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getProjects" FunctionName="myDBModel1.Store.getProjects">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getProjects_Result">
+                <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="WasDeleted" ColumnName="WasDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getRoles" FunctionName="myDBModel1.Store.getRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getRoles_Result">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getUnreadComment" FunctionName="myDBModel1.Store.getUnreadComment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.getUnreadComment_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="InternId" ColumnName="InternId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertIntern" FunctionName="myDBModel1.Store.InsertIntern" />
+          <FunctionImportMapping FunctionImportName="InsertMentor" FunctionName="myDBModel1.Store.InsertMentor" />
+          <FunctionImportMapping FunctionImportName="InsertProject" FunctionName="myDBModel1.Store.InsertProject" />
+          <FunctionImportMapping FunctionImportName="InsertPublishedTask" FunctionName="myDBModel1.Store.InsertPublishedTask" />
+          <FunctionImportMapping FunctionImportName="SaveAssignedTask" FunctionName="myDBModel1.Store.SaveAssignedTask" />
+          <FunctionImportMapping FunctionImportName="SaveFeedback" FunctionName="myDBModel1.Store.SaveFeedback" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_06c4c1e1_06c3_4d9d_ab7f_e04bf6bdec1c" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_06c4c1e1_06c3_4d9d_ab7f_e04bf6bdec1c" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_06cefa11_d88f_436b_90f1_8201e098c677" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_06cefa11_d88f_436b_90f1_8201e098c677" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_09b2dc64_7723_4509_8830_51ec763d987d" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_09b2dc64_7723_4509_8830_51ec763d987d" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_0b41d29b_1fe9_4d0f_8ad9_a02910dccba3" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_0b41d29b_1fe9_4d0f_8ad9_a02910dccba3" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_0e965a7f_8167_49e1_946a_841823b4fbe0" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_0e965a7f_8167_49e1_946a_841823b4fbe0" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_0fb05f8b_1913_4584_ac75_46cb78e807c1" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_0fb05f8b_1913_4584_ac75_46cb78e807c1" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_11a68e49_b851_430d_aa7f_c3ff0a43554d" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_11a68e49_b851_430d_aa7f_c3ff0a43554d" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_13b30df6_4852_43fb_ad4c_fadc8135b660" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_13b30df6_4852_43fb_ad4c_fadc8135b660" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_18f19aee_8642_4ea5_ac96_18f65375f8db" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_18f19aee_8642_4ea5_ac96_18f65375f8db" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_1db29c25_92c7_4dc4_b152_fda2a75f216b" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_1db29c25_92c7_4dc4_b152_fda2a75f216b" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_1efdd52c_1618_43c5_9bef_bcab29db99bc" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_1efdd52c_1618_43c5_9bef_bcab29db99bc" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_2141d348_47ff_454b_9d6d_b183a7ca07ee" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_2141d348_47ff_454b_9d6d_b183a7ca07ee" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_220e75f7_03b8_443c_bfc4_91bb14b5ab37" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_220e75f7_03b8_443c_bfc4_91bb14b5ab37" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_23637453_9a2e_4637_9cbf_a1393828a857" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_23637453_9a2e_4637_9cbf_a1393828a857" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_2479b760_3ce4_41bb_8d9b_9819be177838" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_2479b760_3ce4_41bb_8d9b_9819be177838" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_2c047e91_5746_4de8_a4f5_938770b933ef" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_2c047e91_5746_4de8_a4f5_938770b933ef" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_2cad817b_f2b6_47f6_b3d8_e62afcd61edc" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_2cad817b_f2b6_47f6_b3d8_e62afcd61edc" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_30eff600_d33f_4e2f_b085_67fe984e0a35" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_30eff600_d33f_4e2f_b085_67fe984e0a35" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_361f1e55_0f61_4011_8936_90b113fefe5b" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_361f1e55_0f61_4011_8936_90b113fefe5b" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_36784be2_8d3c_4c7f_8c12_344c1e62533b" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_36784be2_8d3c_4c7f_8c12_344c1e62533b" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_381073a5_50a2_4d28_ae88_63c6fda34629" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_381073a5_50a2_4d28_ae88_63c6fda34629" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_383670ca_0541_4ce7_9c83_7a13c85a7b15" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_383670ca_0541_4ce7_9c83_7a13c85a7b15" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_3c600f7a_6557_4eb0_b20c_141b5d2e688c" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_3c600f7a_6557_4eb0_b20c_141b5d2e688c" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_3db12666_49ed_4d6f_843b_5abdc79aa322" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_3db12666_49ed_4d6f_843b_5abdc79aa322" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_45c92708_35e9_42a2_a1e9_3467be718556" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_45c92708_35e9_42a2_a1e9_3467be718556" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_4ad25557_377f_44ca_a2b4_a563f45e928d" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_4ad25557_377f_44ca_a2b4_a563f45e928d" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_4bdefe67_d0d9_45a9_b1f3_e67366dca0b6" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_4bdefe67_d0d9_45a9_b1f3_e67366dca0b6" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_4c4c1455_2c0c_49f0_8812_776e3e798a93" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_4c4c1455_2c0c_49f0_8812_776e3e798a93" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_5109768f_639c_49dd_9384_ab422ff02eb2" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_5109768f_639c_49dd_9384_ab422ff02eb2" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_52a278d2_8df0_4d0d_b78a_1419765960eb" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_52a278d2_8df0_4d0d_b78a_1419765960eb" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_52b0a68c_cb5a_4e6e_9962_cf6d3b3d3373" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_52b0a68c_cb5a_4e6e_9962_cf6d3b3d3373" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_534c902e_05a2_45de_805e_00a77d38954f" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_534c902e_05a2_45de_805e_00a77d38954f" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_53812da4_7884_4fdd_928f_453b6a56d803" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_53812da4_7884_4fdd_928f_453b6a56d803" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_5d31bbe4_21cc_4bcf_a28b_2e22e9e18b79" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_5d31bbe4_21cc_4bcf_a28b_2e22e9e18b79" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_5e1a9c2d_4ace_4cda_ac21_15b89944a397" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_5e1a9c2d_4ace_4cda_ac21_15b89944a397" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_6317b339_f9f4_4209_9c11_7b980c252884" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_6317b339_f9f4_4209_9c11_7b980c252884" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_66b3e139_408c_496a_b53c_65d4ffc4e144" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_66b3e139_408c_496a_b53c_65d4ffc4e144" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_67807f65_ba7d_4435_88f7_1d1a77d2a674" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_67807f65_ba7d_4435_88f7_1d1a77d2a674" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_6a6d3dca_1d12_4ec9_9fdc_eae72fd117e1" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_6a6d3dca_1d12_4ec9_9fdc_eae72fd117e1" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_6cad0f2d_3501_47f6_a128_eb1bbda78a53" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_6cad0f2d_3501_47f6_a128_eb1bbda78a53" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_6e2afd48_3d7d_4b5f_a03f_9f5ab9291106" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_6e2afd48_3d7d_4b5f_a03f_9f5ab9291106" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_6ec44410_116d_46de_aedc_4307551e9e25" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_6ec44410_116d_46de_aedc_4307551e9e25" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_6ef07e06_dc9c_406c_8350_5a5f840d395e" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_6ef07e06_dc9c_406c_8350_5a5f840d395e" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_6f278629_8635_4fc7_8833_568151173533" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_6f278629_8635_4fc7_8833_568151173533" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_74f1804a_ae8f_4cf4_9914_6074f4d79724" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_74f1804a_ae8f_4cf4_9914_6074f4d79724" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_77cb68e5_8871_4406_9f18_7aeff168f5c0" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_77cb68e5_8871_4406_9f18_7aeff168f5c0" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_787085a2_d524_4e59_a0bc_129eeae3093f" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_787085a2_d524_4e59_a0bc_129eeae3093f" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_78bfb9c9_73e0_4436_aa7b_4eb3128049e1" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_78bfb9c9_73e0_4436_aa7b_4eb3128049e1" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_7bd115cf_5146_4fa6_9807_578815e51469" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_7bd115cf_5146_4fa6_9807_578815e51469" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_7db8b543_348c_480e_b810_341a8bcf8941" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_7db8b543_348c_480e_b810_341a8bcf8941" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_7eb1f0fc_d6c0_4c14_bb96_a3ee615ee766" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_7eb1f0fc_d6c0_4c14_bb96_a3ee615ee766" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_81f1b54a_ee20_4002_846a_62e3dd1e6725" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_81f1b54a_ee20_4002_846a_62e3dd1e6725" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_84877353_e157_49f5_a427_964adb3d88cb" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_84877353_e157_49f5_a427_964adb3d88cb" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_882ef240_87b4_48df_af71_ac9215fd8760" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_882ef240_87b4_48df_af71_ac9215fd8760" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_8a05056e_6424_4d69_8d8a_0bc302ba82dd" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_8a05056e_6424_4d69_8d8a_0bc302ba82dd" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_8f671638_b199_47dd_984c_f79789b8941b" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_8f671638_b199_47dd_984c_f79789b8941b" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_91bed3a1_03e5_4bee_96ce_33ca73263d93" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_91bed3a1_03e5_4bee_96ce_33ca73263d93" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_9bb1dec6_a602_4134_91d8_06802291549d" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_9bb1dec6_a602_4134_91d8_06802291549d" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_a327705c_d55f_4495_94aa_10bf1ddfb290" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_a327705c_d55f_4495_94aa_10bf1ddfb290" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_ab58305e_93f0_4e51_bed8_f7c6dc21cfe1" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_ab58305e_93f0_4e51_bed8_f7c6dc21cfe1" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_ac49ac4e_5412_4a4f_a314_2322aa99d3d2" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_ac49ac4e_5412_4a4f_a314_2322aa99d3d2" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_acedb4b4_4ed9_4eed_9a25_2c18e8a5e726" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_acedb4b4_4ed9_4eed_9a25_2c18e8a5e726" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_ae74030b_325b_42c4_bb14_561f82b3bc86" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_ae74030b_325b_42c4_bb14_561f82b3bc86" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_ae942c8d_3870_4ac5_84a4_61d82af23862" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_ae942c8d_3870_4ac5_84a4_61d82af23862" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_afbec480_77e3_410b_85c0_369d95b77c4a" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_afbec480_77e3_410b_85c0_369d95b77c4a" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_b25cf83e_ec42_4f0c_9878_c40bf21239ea" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_b25cf83e_ec42_4f0c_9878_c40bf21239ea" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_b41ebfa2_8fd4_4816_af50_503a43afa8d1" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_b41ebfa2_8fd4_4816_af50_503a43afa8d1" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_b55a842e_df7f_43aa_b2bf_90fe414c5764" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_b55a842e_df7f_43aa_b2bf_90fe414c5764" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_b9bf5e6b_dc62_493c_95e5_2fea72629ce2" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_b9bf5e6b_dc62_493c_95e5_2fea72629ce2" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_beeeeb18_78db_4630_a85a_70365537ff64" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_beeeeb18_78db_4630_a85a_70365537ff64" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_c1909edc_6042_45d8_8ac3_758268f3df88" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_c1909edc_6042_45d8_8ac3_758268f3df88" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_c40299ee_beef_4a10_99d1_4b46697892b8" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_c40299ee_beef_4a10_99d1_4b46697892b8" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_c8d3ad3a_b326_478a_bd62_4f41f6c3fea2" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_c8d3ad3a_b326_478a_bd62_4f41f6c3fea2" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_caafb9c3_30fc_499e_9d33_7de68f9be7eb" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_caafb9c3_30fc_499e_9d33_7de68f9be7eb" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_cb572faf_3060_4629_b5a2_cac85cf197b0" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_cb572faf_3060_4629_b5a2_cac85cf197b0" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_d067ee2b_b387_4f79_94b5_e6c9d768e33d" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_d067ee2b_b387_4f79_94b5_e6c9d768e33d" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_d57c8466_d10b_4ee8_b460_b3c27bb9d667" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_d57c8466_d10b_4ee8_b460_b3c27bb9d667" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_d7fdd80a_c2c4_4a02_9062_e893cf6f7470" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_d7fdd80a_c2c4_4a02_9062_e893cf6f7470" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_d92525bd_b44b_4b34_8694_2fb1c1bdaf89" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_d92525bd_b44b_4b34_8694_2fb1c1bdaf89" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_d9eb2050_744a_4071_a2c0_7f2d233864a6" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_d9eb2050_744a_4071_a2c0_7f2d233864a6" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_da665adb_cc57_4143_a84d_4d802deb7400" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_da665adb_cc57_4143_a84d_4d802deb7400" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_dc3c1fa0_48d2_42a5_bb5d_eddfc738429d" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_dc3c1fa0_48d2_42a5_bb5d_eddfc738429d" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_dcbfbaa3_e359_43b8_a053_73b0b3ccc911" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_dcbfbaa3_e359_43b8_a053_73b0b3ccc911" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_dd77b5c5_2917_40e5_8083_377e92927723" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_dd77b5c5_2917_40e5_8083_377e92927723" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_df792a4c_8102_4fa1_9dcc_b7b85336c854" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_df792a4c_8102_4fa1_9dcc_b7b85336c854" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_e0852d0e_5a04_4a1c_b5ed_689d81d246da" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_e0852d0e_5a04_4a1c_b5ed_689d81d246da" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_e2ffffec_1755_4317_b6ee_ee164db3f910" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_e2ffffec_1755_4317_b6ee_ee164db3f910" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_e476c13e_370e_40c9_97e6_949042fa7f13" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_e476c13e_370e_40c9_97e6_949042fa7f13" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_e5308cf5_7031_44b2_b485_0b66e7c3f19b" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_e5308cf5_7031_44b2_b485_0b66e7c3f19b" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_e7c4c891_c9da_4e64_833d_5e03ff509dd8" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_e7c4c891_c9da_4e64_833d_5e03ff509dd8" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_f09ddc0a_e606_4282_9ed9_aa5e484e6c63" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_f09ddc0a_e606_4282_9ed9_aa5e484e6c63" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_f33bb672_d6ae_47fb_a8c4_bb9956e22487" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_f33bb672_d6ae_47fb_a8c4_bb9956e22487" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_f40206df_e46f_491e_a1a3_b66d6226d52e" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_f40206df_e46f_491e_a1a3_b66d6226d52e" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_f4f780f6_1fc4_4009_8409_e020a0ba0feb" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_f4f780f6_1fc4_4009_8409_e020a0ba0feb" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_f584042d_3b88_4562_88b4_a91ad868c0a1" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_f584042d_3b88_4562_88b4_a91ad868c0a1" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_f5fdf379_4d81_4e4c_8ffe_431c28bf8ca8" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_f5fdf379_4d81_4e4c_8ffe_431c28bf8ca8" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_f61c0aba_2966_44e4_b0a0_efd158a5a7ff" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_f61c0aba_2966_44e4_b0a0_efd158a5a7ff" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_fbd2c2a2_39fb_4b6b_9b86_dd872b6dc41c" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_fbd2c2a2_39fb_4b6b_9b86_dd872b6dc41c" />
+          <FunctionImportMapping FunctionImportName="SqlQueryNotificationStoredProcedure_ff04da2d_86ca_4c27_b6e2_782c72700107" FunctionName="myDBModel1.Store.SqlQueryNotificationStoredProcedure_ff04da2d_86ca_4c27_b6e2_782c72700107" />
+          <FunctionImportMapping FunctionImportName="UpdateAssignedTask" FunctionName="myDBModel1.Store.UpdateAssignedTask" />
+          <FunctionImportMapping FunctionImportName="UpdateComment" FunctionName="myDBModel1.Store.UpdateComment" />
+          <FunctionImportMapping FunctionImportName="UpdateIsPublished" FunctionName="myDBModel1.Store.UpdateIsPublished" />
+          <FunctionImportMapping FunctionImportName="UpdateIsRead" FunctionName="myDBModel1.Store.UpdateIsRead" />
+          <FunctionImportMapping FunctionImportName="UpdatePreference" FunctionName="myDBModel1.Store.UpdatePreference" />
+          <FunctionImportMapping FunctionImportName="updateTaskStatus" FunctionName="myDBModel1.Store.updateTaskStatus" />
+          <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="myDBModel1.Store.UpdateUser" />
+          <FunctionImportMapping FunctionImportName="verifyLogin" FunctionName="myDBModel1.Store.verifyLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="myDBModel1.verifyLogin_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

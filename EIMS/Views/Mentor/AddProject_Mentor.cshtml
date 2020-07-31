@@ -1,0 +1,148 @@
+﻿@model EIMS.Models.MentorModel
+
+@{
+    ViewBag.Title = "AddProject_Mentor";
+}
+
+<div class="well" style="background-color:cornflowerblue">
+    <h3 class="text-center">Assign Mentor</h3>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 col-lg-offset-1">
+            @*@using (Html.BeginForm("AddProject_Mentor", "Mentor", FormMethod.Post))
+                {*@
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <form id="myFormMentor">
+                    <h4>MentorModel</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @id = "id", placeholder = "Mentor Id" } })
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FName, new { htmlAttributes = new { @class = "form-control", @id = "fname", placeholder = "First Name" } })
+                            @Html.ValidationMessageFor(model => model.FName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MName, new { htmlAttributes = new { @class = "form-control", placeholder = "Middle Name" } })
+                            @Html.ValidationMessageFor(model => model.MName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LName, new { htmlAttributes = new { @class = "form-control", @id = "lname", placeholder = "Last Name" } })
+                            @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProjId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @*@Html.EditorFor(model => model.ProjId, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.DropDownListFor(model => model.ProjId, ViewBag.ProjIdList as SelectList, "----Select Project ID----", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProjId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" id="btn18" value="Assign" class="btn btn-success" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @*}*@
+
+
+
+          
+            <hr />
+            <div class="well">
+                <a style="align-content:center" class="btn btn-primary " onclick="location.href='@Url.Action("viewAssignedMentor", "Mentor")'" id="btnIntern">View Assigned Mentor</a>
+
+            </div>
+        </div>
+
+        <div style="border:2px solid;height:480px;margin-left:5px;margin-right:5px;padding-top:20px;" class="col-md-5">
+            @*<h6>Unassigned Interns</h6>*@
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FName</th>
+                        <th>MName</th>
+                        <th>LName</th>
+
+                    </tr>
+                </thead>
+                @foreach (var item in ViewBag.projList)
+                {
+                    String name = @item.Id.ToString();
+                    <tr>
+
+                        <td>@Html.ActionLink(name, "Assign_Mentor", new { Id = @item.Id })</td>
+                        <td>@item.FName</td>
+                        <td>@item.MName</td>
+                        <td>@item.LName</td>
+
+
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#btn18").click(function () {
+
+
+                var data = $("#myFormMentor").serialize();
+                if (!$("#myFormMentor").valid()) {
+
+                    return false;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Mentor/AddProject_Mentor",
+                    data: data,
+                    success: function (response) {
+                        $("#fname").val("");
+                        $("#id").val("");
+                        $("#lname").val("");
+                        window.location.href="/Mentor/AddProject_Mentor";
+
+                    }
+
+
+
+                })
+            
+
+            })
+        })
+
+
+
+
+</script>
+
+

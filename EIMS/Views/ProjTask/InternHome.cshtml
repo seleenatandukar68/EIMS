@@ -1,0 +1,117 @@
+﻿@model IEnumerable<EIMS.Models.ProjTaskModel>
+
+@{
+    ViewBag.Title = "InternHome";
+}
+
+
+<link href="~/Content/mycss.css" rel="stylesheet" />
+
+@*<script src="~/Scripts/jquery.simplePagination.js"></script>
+
+    <link href="~/Content/simplePagination.css" rel="stylesheet" />*@
+
+<style>
+    .listTasks {
+        list-style-type: none;
+        margin: 0;
+        float: left;
+        margin-right: 10px;
+        background-color: white;
+        padding: 5px;
+        width: 143px;
+    }
+
+    #listTasks li {
+        margin: 5px;
+        padding: 3px;
+        font-size: 1.2em;
+        width: 120px;
+    }
+
+    .actionclass {
+        color: white;
+        font-style: normal;
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: white;
+        background: initial;
+        text-decoration: none;
+    }
+</style>
+
+
+<input type="hidden" value="@ViewBag.flag" id="txtFlag" />
+@if (ViewBag.flag == true)
+{
+    var ProjId = "";
+    var ProjName = "";
+    foreach (var Project in Model)
+    {
+        ProjId = Project.ProjId.ToString();
+        ProjName = Project.ProjectName;
+    }
+    <h2> @ProjName Dashboard</h2>
+    var groupByWeek = Model.GroupBy(x => x.WeekId).ToList();
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Weeks </h4>
+                <hr/>
+                <ol class="list list-view-filter">
+                    @foreach (var item in groupByWeek)
+                {
+                        <li class="liclass">@Html.ActionLink("Week - " + item.Key, "getWeeklyTaskById", new { ProjId = ProjId, Internid = ViewBag.internId, WeekId = item.Key }, new { @class = "actionclass" })</li>
+
+
+
+                    }
+
+                </ol>
+            </div>
+            <div class="col-md-6">
+                <div id="Mentor"></div>
+            </div>
+        </div>
+
+        <div style="clear:both"></div>
+
+        <div class="row col-md-12" id="pagination-container"></div>
+    </div>
+}
+else
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dissmiss="modal"><span aria-hidden="true">×</span></button>*@
+
+                    <h4 class="modal-title" id="myModalLabel">Please Select your Internship preference</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group" id="ddlPref">
+
+                            @Html.DropDownList("ddlPreference", new SelectList(@ViewBag.data, "Value", "Text"), "--Select Internship Category--")
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-success" id="btnLogOut">Log out</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section scripts {
+
+    <script src="~/ViewScript/InternHome.js"></script>
+}

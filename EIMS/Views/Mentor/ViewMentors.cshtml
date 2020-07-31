@@ -1,0 +1,85 @@
+﻿
+
+
+
+<div class="well" style="background-color:#5cb85c">
+    <h3 class="text-center">Mentors List</h3>
+</div>
+
+<div class="panel panel-body">
+    <div class="col-md-12">
+        <table class="display" id="MyTable41">
+            <thead>
+                <tr>
+                    <th>Mentor Id</th>
+                    <th>Full Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+
+            DisplayMentorList();
+    })
+    var DisplayMentorList = function () {
+
+        $.ajax({
+
+            type: "Get",
+            url: "/Mentor/DisplayMentorList",
+            success: function (response) {
+
+                BindDataTable(response);
+
+            }
+        })
+
+    }
+    var BindDataTable = function (response) {
+        $("#MyTable41").DataTable({
+            "aaData": response,
+            "aoColumns": [
+                { "mData": "Id" },
+                {
+                    "mData": "FName",
+                    mRender: function (data, type, row) {
+                        return row.FName + " " + row.MName + " " + row.LName;
+
+                    }
+                },
+                {
+                    "mData": "Id",
+                    "render": function (Id, type, full, meta) {
+                        return '<a href="#" class="glyphicon glyphicon-eye-open" onclick="ViewMentor(' + Id + ')"></a>'
+                    }
+                }
+            ]
+        });
+    }
+
+    var ViewMentor = function (Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Mentor/ViewMentor",
+            data: {Id:Id},
+            success: function () {
+
+                window.location.href = "/Mentor/ViewMentor/"+Id;
+
+            }
+
+
+
+        })
+    }
+
+
+</script>

@@ -1,0 +1,66 @@
+﻿
+<div class="container">
+    <div class="row well">
+        <div class="col-md-3">
+            <div class="col-md-3">
+                <label>Project</label>
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownList("ddlProject", new SelectList(@ViewBag.ProjectList, "Value", "Text"), "--Select Project--")
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-3">
+                <label> Category</label>
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownList("ddlCategory", new SelectList(@ViewBag.data, "Value", "Text"), "--Select Category--")
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-3">
+                <label> Week</label>
+            </div>
+            <div class="col-md-6">
+                <select id="ddlWeek">
+                    <option value="0">----Select Week No----</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button id="btnView" class="btn-success">View</button>
+        </div>
+    </div>
+    <div id="divIntern" style="display:none" >
+        <div class="row" id="divHeader" >
+            <div class="col-md-2"> <label> Intern ID</label></div>
+            <div class="col-md-4"> <label>Name </label></div>
+            <div class="col-md-4"> <label>Category </label></div>
+            <div class="col-md-2"><label> Action </label> </div>
+        </div>
+        <div class="row" id="divDetails">
+
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+
+  
+<script src="~/ViewScript/EvaluateInterns.js"></script>
+}

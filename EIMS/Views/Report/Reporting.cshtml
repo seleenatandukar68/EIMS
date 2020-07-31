@@ -1,0 +1,85 @@
+﻿@model EIMS.Models.ReportModel
+@using (Html.BeginForm("ViewReport", "Report", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-12 col-lg-12 padding-left-0">
+                    <h4 class="margin-bottom-15 margin-top-0 text-left" style="font-weight: bold;">
+                        Reporting
+                    </h4>
+                    <div>
+                        <form class="form-horizontal" role="form">
+
+                            <div class="col-md-4 col-xs-12 col-sm-12" style="border: 1px solid #ccc; padding: 15px;">
+                                <div class="form-group row margin-bottom-0">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label text-top padding-left-0"
+                                           for="textinput">
+                                        Project
+                                    </label>
+                                    <div class="col-xs-12 col-sm-12 col-md-5">
+                                        @Html.DropDownList("ddlProject", new SelectList(@ViewBag.ProjectList, "Value", "Text"), "--Select Project--")
+                                    </div>
+
+                                </div>
+                                <div class="form-group row margin-bottom-0">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label text-top padding-left-0"
+                                           for="textinput">
+                                        Category
+                                    </label>
+                                    <div class="col-xs-12 col-sm-12 col-md-5">
+                                        @Html.DropDownList("ddlCategory", new SelectList(@ViewBag.data, "Value", "Text"), "--Select Category--")
+                                    </div>
+
+                                </div>
+                                <div class="form-group row margin-bottom-0">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label text-top padding-left-0"
+                                           for="textinput">
+                                        Week
+                                    </label>
+                                    <div class="col-xs-12 col-sm-12 col-md-5">
+                                        @Html.EditorFor(model => model.WeekId, new { htmlAttributes = new { @class = "form-control", @id = "txtWeekId" } })
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row margin-bottom-0">
+                                    <label class="col-xs-12 col-sm-12 col-md-4 col-lg-4 control-label text-top padding-left-0"
+                                           for="textinput">
+                                        Intern Id
+                                    </label>
+                                    <div class="col-xs-12 col-sm-12 col-md-5">
+                                        @Html.EditorFor(model => model.InternId, new { htmlAttributes = new { @class = "form-control", @id = "txtInternId" } })
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group  pull-right">
+                                    <input type="submit" id="btnView" value="View Report" class="actionclass btn btn-success" />
+
+                                </div>
+                            </div>
+                            
+
+
+
+
+                        </form>
+                        <div style="clear:both"></div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+@section Scripts {
+<script src="~/ViewScript/Reporting.js"></script>
+    }
+

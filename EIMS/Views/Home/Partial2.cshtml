@@ -1,0 +1,191 @@
+﻿@model EIMS.Models.ProjectModel
+
+<div>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form id="myform1">
+
+        @*@Html.EditorFor(model => model.ProjId, new { htmlattributes = new { @class = "form-control" } })
+        @html.editorfor(model => model.projectname, new { htmlattributes = new { @class = "form-control" } })
+        @html.editorfor(model => model.startdate, new { htmlattributes = new { @class = "form-control" } })
+        @html.editorfor(model => model.enddate, new { htmlattributes = new { @class = "form-control" } })
+        <a href="#" id="btnsubmit" class="btn btn-success btn-block">
+
+                <span>update</span>
+
+            </a>
+        <input type="submit" value="edit" name="action" id="btnsub" class="btn btn-success" />
+    </form>*@
+        <div class="form-group">
+            <label class="control-label col-md-3">Project Id</label>
+            <div class="col-md-9">
+                @Html.HiddenFor(model=>model.ProjId)
+                @Html.EditorFor(model => model.ProjId, new { htmlAttributes = new { @class = "form-control" , @disabled="disabled"} })
+                @Html.ValidationMessageFor(model => model.ProjId, "", new { @class = "text-danger" })
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Project Name</label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Start Date</label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="control-label col-md-3">End Date</label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="control-label col-md-3">Status</label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input class="btn btn-success" type="submit" value="Edit Project" id="btnEdit" />
+        </form>
+    <div style="text-align:center;display:none" id="loaderdiv">
+        <img src="~/content/loading.gif" width="150" />
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#btnEdit").click(function () {
+           
+          
+
+            var myformdata = $("#myform1").serialize();
+            //if (!$("#myForm1").valid()) {
+
+            //    return false;
+            //}
+            $("#loaderdiv").show();
+            $.ajax({
+
+                type: "POST",
+                url: "/Home/Update",
+                data: myformdata,
+                success: function () {
+                    $("#loaderdiv").hide();
+                    $("#mymodal1").modal("hide");
+                   // window.location.href = "/home/index";
+                }
+
+            })
+        })
+
+    })
+
+
+</script>
+
+@*<form id="myForm13">
+
+    @Html.EditorFor(model => model.ProjId, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-group">
+        <label class="control-label col-md-3">Project Id</label>
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.ProjId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjId, "", new { @class = "text-danger" })
+
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3">Project Name</label>
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3">Start Date</label>
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+
+        <label class="control-label col-md-3">End Date</label>
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+    @*<a href="#" id="btnSubmit" class="btn btn-success btn-block">
+
+            <span>Update</span>
+
+        </a>
+
+    <input class="btn btn-success" type="submit" value="Edit Project" id="btnSub" />
+
+
+
+
+
+
+</form>
+
+
+<div style="text-align:center;display:none" id="loaderDiv">
+    <img src="~/Content/loading.gif" width="150" />
+</div>
+
+
+<script src="~/scripts/jquery-1.12.4.min.js"></script>
+<script>
+
+        $(document).ready(function () {
+
+            $("#btnSub").click(function () {
+                $.validator.unobtrusive.parse($myForm13);
+                $myForm13.validate();
+                if ($myForm13.valid()) {
+                    $("#loaderDiv").show();
+
+                    var myformdata = $("#myForm13").serialize();
+
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/Home/Update",
+                        data: myformdata,
+                        success: function () {
+                            $("#loaderDiv").hide();
+                            $("#myModal1").modal("hide");
+                            window.location.href = "/Home/Index";
+                        }
+
+                    })
+                }
+            })
+
+        })*@
+

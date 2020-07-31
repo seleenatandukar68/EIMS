@@ -1,0 +1,121 @@
+﻿@model EIMS.Models.InternModel
+
+@{
+    ViewBag.Title = "ViewIntern";
+}
+
+<div class="well" style="background-color:#5cb85c">
+    <h3 class="text-center">Intern Details</h3>
+</div>
+@using (Html.BeginForm("EditDelete", "Intern", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+     
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+        @Html.HiddenFor(model => model.Id, new { id = "hidID" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InternId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InternId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" , @id = "txtId"} })
+                @Html.ValidationMessageFor(model => model.InternId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.FName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.MName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+        <div class="form-group well">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Edit" id="btnEdit" name="btn" class="btn btn-success" />
+                <input type="submit" value="Save" id="btnSave" name="btn" class="btn btn-success" disabled ="disabled" />
+                <input type="submit" value="Delete" id="btnDel" name="btn" class="btn btn-success" />
+                <input type="button" value="View Files" id="btnFileDet" name="btn" class="btn btn-success" />
+            </div>
+          
+        </div>
+     
+
+
+
+        <div id="FileDetails"></div>
+    </div>
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dissmiss="modal" id="btnClose"><span aria-hidden="true">×</span></button>
+
+                <h4 class="modal-title" id="myModalLabel">Documents </h4>
+            </div>
+            <div class="modal-body" id="myModalContent">
+              
+            </div>
+         \
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+<script src="~/ViewScript/ViewInternScript.js"></script>
+}

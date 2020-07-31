@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "viewAssignedIntern";
+}
+
+<div class="well" style="background-color:#5cb85c">
+    <h3 class="text-center">Intern Project Information</h3>
+</div>
+
+<div class="panel panel-body">
+
+    <div class="col-md-12">
+        <table class="display" id="MyTable9">
+            <thead>
+                <tr>
+                    <th>
+                        Intern Id
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Project Id
+                    </th>
+                    @*<th>
+                            Project Title
+                        </th>*@
+                    <th>
+                        Project Role
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+
+        </table>
+
+
+
+    </div>
+
+
+</div>
+<script>
+    $(document).ready(function () {
+
+
+
+        InternList();
+    })
+    var InternList = function () {
+
+        $.ajax({
+
+            type: "Get",
+            url: "/Intern/InternList",
+            success: function (response) {
+
+                BindDataTable(response);
+
+            }
+        })
+
+    }
+
+
+    var BindDataTable = function (response) {
+
+        $("#MyTable9").DataTable({
+
+            "aaData": response,
+            "aoColumns": [
+
+                { "mData": "Id" },
+                { "mData": "FName" },
+                { "mData": "ProjId" },
+               // { "mData": "ProjectName" },
+                { "mData": "ProjRole" }
+
+
+
+
+            ]
+
+        });
+    }
+
+</script>

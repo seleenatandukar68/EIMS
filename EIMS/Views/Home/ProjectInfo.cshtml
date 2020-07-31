@@ -1,0 +1,187 @@
+﻿@model EIMS.Models.ProjectModel
+@{
+    ViewBag.Title = "ProjectInfo";
+}
+@*<div class="well" style="background-color:cornflowerblue">
+        <h3 class="text-center">Project Detail</h3>
+    </div>*@
+<div class="jumbotron" style="background-color:#5cb85c">
+    @foreach (var item in ViewBag.ProjectName)
+    {
+        <h2 class="text-center">@item.ProjectName </h2>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in ViewBag.ProjectName)
+        {
+            <div class="col-md-10">
+                <div style="border:2px solid; height:490px;">
+                    <div style="padding-top:10px;" class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/week-1.jpg" />
+                            <p>@Html.ActionLink("week-1", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 1 })</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/week-2.jpg" />
+                            <p>@Html.ActionLink("week-2", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 2 })</p>
+
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/week-3.jpg" />
+                            <p>@Html.ActionLink("week-3", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 3 })</p>
+
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 4.jpg" />
+                            <p>@Html.ActionLink("week-4", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 4 })</p>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 5.jpg" />
+                            <p>@Html.ActionLink("week-5", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 5 })</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 6.jpg" />
+                            <p>@Html.ActionLink("week-6", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 6 })</p>
+
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/topic pic 7.png" />
+                            <p>@Html.ActionLink("week-7", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 7 })</p>
+
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 8.png" />
+                            <p>@Html.ActionLink("week-8", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 8 })</p>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 9.jpg" />
+                            <p>@Html.ActionLink("week-9", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 9 })</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 10.jpg" />
+                            <p>@Html.ActionLink("week-10", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 10 })</p>
+
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 11.jpg" />
+                            <p>@Html.ActionLink("week-11", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 11 })</p>
+
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="~/Content/images/Topic pic 12.jpg" />
+                            <p>@Html.ActionLink("week-12", "Project_week_details1", new { ProjId = @item.ProjId, WeekId = 12 })</p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-2" style="height:480px;">
+            <div class="row">
+                <div class="well" style="background-color:#5cb85c">
+
+                    <h1 style="text-align:center;">Interns</h1>
+                </div>
+
+                <ul class="list-group">
+
+                    @foreach (var item in ViewBag.InternList)
+                    {
+                        <a href="#" style="text-align:center;" class="list-group-item list-group-item-active">@item.FName-@item.Id</a>
+                        @*<li style="text-align:center;"class="list-group-item list-group-item-primary"> @item.InternFName</li>*@
+                    }
+                </ul>
+
+
+            </div>
+            <div class="row">
+                <div class="well" style="background-color:#5cb85c">
+
+                    <h1 style="text-align:center;">Mentors</h1>
+                </div>
+                @*<h1 style="text-align:center;">Mentors</h1>*@
+                <ul class="list-group">
+                    @if (ViewBag.MentorList != null)
+
+                    {
+                        foreach (var item in ViewBag.MentorList)
+                        {
+                            <a href="#" style="text-align:center;" class="list-group-item list-group-item-active">@item.FName-@item.Id</a>
+                        }
+
+                    }
+                    @if (ViewBag.MentorList == null)
+                    {
+                        <a href="#" style="text-align:center;" class="list-group-item list-group-item-active">No assignment</a>
+                    }
+
+
+                </ul>
+            </div>
+            @*<div class="row">
+                    <table class="table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Project Role</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in ViewBag.InternList)
+                        {
+
+                            <tr>
+
+                                <td>@item.InternId</td>
+                                <td>@item.InternFName</td>
+                                <td>@item.ProjRole</td>
+
+
+                            </tr>
+
+
+                        }
+
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Mentor Name</th>
+
+                            </tr>
+                        </thead>
+                        @foreach (var item in ViewBag.MentorList)
+                        {
+
+                            <tr>
+
+                                <td>@item.Id</td>
+                                <td>@item.FName</td>
+
+
+                            </tr>
+
+
+                        }
+                    </table>
+                </div>*@
+        </div>
+
+    </div>
+
+</div>

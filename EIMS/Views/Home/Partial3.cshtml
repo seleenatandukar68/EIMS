@@ -1,0 +1,71 @@
+﻿@model EIMS.Models.ProjectModel
+
+<div>
+
+    <form id="myForm10">
+        <div class="form-group">
+            <label class="control-label col-md-3">Project Id</label>
+            <div class="col-md-9">
+                @Html.HiddenFor(model => model.ProjId)
+                @Html.EditorFor(model => model.ProjId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Project Name</label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Start Date</label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="control-label col-md-3">End Date</label>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <input type="submit" value="Delete Project" name="action" id="btnSub1" class="btn btn-success" />
+    </form>
+
+    <div style="text-align:center;display:none" id="loaderDiv">
+        <img src="~/Content/loading.gif" width="150" />
+    </div>
+
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSub1").click(function () {
+
+            $("#loaderDiv").show();
+
+            var myformdata = $("#myForm10").serialize();
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Home/DeleteProject",
+                data: myformdata,
+                success: function () {
+                    $("#loaderDiv").hide();
+                    $("#myModal1").modal("hide");
+                    window.location.href = "/Home/Index";
+                }
+
+            })
+        })
+
+    })
+
+
+</script>

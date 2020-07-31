@@ -1,0 +1,89 @@
+﻿@*@model IEnumerable<EIMS.Models.InternModel>*@
+
+@{
+    //ViewBag.Title = "InternDetails";
+}
+
+
+
+<div class="well" style="background-color:#5cb85c">
+    <h3 class="text-center">Interns List</h3>
+</div>
+
+<div class="panel panel-body">
+    <div class="col-md-12">
+        <table class="display" id="MyTable4">
+            <thead>
+                <tr>
+                    <th>Intern Id</th>
+                    <th>Full Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+      
+        
+            DisplayInternList();
+    })
+    var DisplayInternList = function () {
+
+        $.ajax({
+
+            type: "Get",
+            url: "/Intern/DisplayInternList",
+            success: function (response) {
+
+                BindDataTable(response);
+
+            }
+        })
+
+    }
+    var BindDataTable = function (response) {
+        $("#MyTable4").DataTable({
+            "aaData": response,
+            "aoColumns": [
+                { "mData": "Id" },
+                {
+                    "mData": "FName",
+                    mRender: function (data, type, row) {
+                        return row.FName + " " + row.MName + " " + row.LName;
+
+                    }
+                },
+                {
+                    "mData": "Id",
+                    "render": function (Id, type, full, meta) {
+                        return '<a href="#" class="glyphicon glyphicon-eye-open" onclick="ViewIntern(' + Id + ')"></a>'
+                    }
+                }
+            ]
+        });
+    }
+
+    var ViewIntern = function (Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Intern/ViewIntern",
+            data: {Id:Id},
+            success: function () {
+              
+                window.location.href = "/Intern/ViewIntern/"+Id;
+
+            }
+
+
+
+        })
+    }
+
+
+</script>

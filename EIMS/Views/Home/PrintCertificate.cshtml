@@ -1,0 +1,50 @@
+﻿@model EIMS.Models.CertificateModel
+
+@{
+    ViewBag.Title = "PrintCertificate";
+}
+
+<h2>PrintCertificate</h2>
+
+<div>
+    <h4>CertificateModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InternId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InternId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.internStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.internStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.internEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.internEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

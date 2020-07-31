@@ -1,0 +1,117 @@
+﻿@model EIMS.Models.ProjTaskModel
+<div class="jumbotron" style="background-color:#5cb85c">
+    @foreach (var item in ViewBag.ProjectName)
+    {
+        <h2 class="text-center">Details for @item.ProjectName</h2>
+    }
+</div>
+<div class="row">
+
+    <table class="table table-striped table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Intern ID</th>
+                <th>Week No</th>
+                <th>Task Details</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        @foreach (var item in ViewBag.WeekNum)
+        {
+            var status = "";
+            <tbody>
+                <tr>
+                    <td>@item.InternId</td>
+                    <td>@item.WeekId</td>
+                    <td>@item.TaskDes</td>
+                    @if (item.Status == 1) { status = "Assigned"; }
+                    @if (item.Status == 2) { status = "Progressing"; }
+                    @if (item.Status == 3) { status = "completed"; }
+                    <td>@status</td>
+                </tr>
+            </tbody>
+
+
+        }
+    </table>
+
+</div>
+@*<div class="panel panel-body">
+
+        <div class="col-md-12">
+            <table class="display" id="MyTable41">
+                <thead>
+                    <tr>
+                        <th>
+                            Intern Id
+                        </th>
+                        <th>
+                            Task Details
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+
+            </table>
+
+
+
+        </div>
+
+
+    </div>
+    <script>
+        $(document).ready(function () {
+
+
+
+            DisplayWeekDetails(model.ProjId,model.WeekId);
+        })
+        var DisplayWeekDetails = function () {
+
+            $.ajax({
+
+                type: "Get",
+                url: "/Intern/DisplayWeekDetails",
+                success: function (response) {
+
+                    BindDataTable(response);
+
+                }
+            })
+
+        }
+
+
+        var BindDataTable = function (response) {
+
+            $("#MyTable41").DataTable({
+
+                "aaData": response,
+                "aoColumns": [
+
+
+                    { "mData": "InternId" },
+                    {
+                        "mData": "Task Details"},
+
+
+                    {
+                        "mData": "Status"}
+
+
+                ]
+
+            });
+        }
+
+
+
+    </script>*@

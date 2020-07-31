@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EIMS.Models.ProjTaskModel>
+
+@{
+    ViewBag.Title = "InternDashboard";
+}
+
+
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<h2>InternDashboard</h2>
+
+
+<div class="container">
+    <div class= "col-md-6">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td> Week </td>
+                    <td> Task </td>
+                </tr>
+            </thead>
+            <tbody id="sortable" style="cursor:pointer">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.WeekId
+                        </td>
+                        <td class="taskSingleInLine" id="task@(item.TaskId)" data-taskid="@item.TaskId"> @item.TaskName</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table> 
+    </div>
+</div>
+
+
+
+    @section Scripts {
+        <script src="~/ViewScript/InternDashboard.js"></script>
+    }

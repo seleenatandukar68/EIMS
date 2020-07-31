@@ -1,0 +1,105 @@
+﻿@model IEnumerable<EIMS.Models.ProjTaskModel>
+<style>
+    #listToDo, #listProgress, #listDone {
+        list-style-type: none;
+        margin: 0;
+        float: left;
+        margin-right: 10px;
+        background-color: white;
+        padding: 15px;
+        
+    }
+
+ 
+        .actionclass{
+            color:white;
+            font-style:normal;
+             cursor:pointer;
+            
+        }
+        a:hover {
+            color:white;
+            background:initial;
+           text-decoration:none;
+          
+        }
+</style>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+<input type="hidden" id="weekid" value="@ViewBag.WeekId" )/>
+<h2>Week -  @ViewBag.WeekId Task Details </h2> 
+<div class="well">
+    <button type="button" class="btn btn-success"> @Html.ActionLink("Back to List", "getProjTaskDetById", new { Internid = ViewBag.InternId }, new { @class = "actionclass" })</button>
+    <button type="button" class="btn btn-success" id="btnEditor">@Html.ActionLink("Add Comment", "AddComment", new { ProjectId = ViewBag.ProjId, Internid = ViewBag.InternId, WeekId = ViewBag.WeekId }, new { @class = "actionclass" })</button>
+</div>  
+    <hr />
+    
+
+          <div class="container">
+            <table class="table table-bordered table-hover " style="width:100%">
+                <thead>
+                    <tr  class="row col-md-12">
+                        <td class="col-md-4">Tasks to do</td>
+                        <td class="col-md-4"> Progressing</td>
+                        <td class="col-md-4"> Done</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row col-md-12">
+                        <td  class="col-md-4">
+                            <ul id="listToDo" class="listTasks" >
+
+                                @foreach (var tasks in Model.Where(x => x.Status == 1))
+                                {
+                                    
+                                    <li id="@tasks.TaskId">
+                                       
+                                        @tasks.TaskDes
+                                    </li>
+
+
+
+                                }
+                            </ul>
+                        </td>
+                        <td  class="col-md-4">
+                            <ul id="listProgress" class="listTasks">
+                                @foreach (var tasks in Model.Where(x => x.Status == 2))
+                                {
+
+                                    <li id="@tasks.TaskId">
+                                        @tasks.TaskDes
+
+                                    </li>
+
+                                }
+                            </ul>
+                        </td>
+                        <td  class="col-md-4">
+                            <ul id="listDone" class="listTasks">
+                                @foreach (var tasks in Model.Where(x => x.Status == 3))
+                                {
+
+                                    <li id="@tasks.TaskId">
+                                        @tasks.TaskDes
+
+                                    </li>
+
+                                }
+                            </ul>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+              <button type="button" class="btn btn-success" id="btnSave"/> Save
+</div>
+@section scripts {
+<script src="~/ViewScript/InternWeeklyTask.js"></script>
+
+
+    }
+
+
+

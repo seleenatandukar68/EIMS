@@ -1,0 +1,64 @@
+﻿@model IEnumerable<EIMS.Models.InternModel>
+
+@{
+    ViewBag.Title = "getAllComNot";
+}
+
+<h2>Details</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="col-md-3">
+                <label>Project</label>
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownList("ddlProject", new SelectList(@ViewBag.ProjectList, "Value", "Text"), "--Select Project--")
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-3">
+                <label> Category</label>
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownList("ddlCategory", new SelectList(@ViewBag.data, "Value", "Text"), "--Select Category--")
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-3">
+                <label> Week</label>
+            </div>
+            <div class="col-md-6">
+               <select id="ddlWeek">
+                   <option value="0">----Select Week No----</option>
+                   <option value="1">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+
+               </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button id="btnView" class="btn-primary" >View</button>
+        </div>
+    </div>
+    <div id="divIntern" style="display:none">
+        <div class="row" id="divHeader">
+            <div class="col-md-2"> <label> Intern ID</label></div>
+            <div class="col-md-4"> <label>Name </label></div>
+            <div class="col-md-4"> <label>Category </label></div>
+            <div class="col-md-2"><label> Action </label> </div>
+        </div>
+        <div class="row" id="divDetails">
+
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    
+<script src="~/ViewScript/AllNotification.js"></script>
+    }

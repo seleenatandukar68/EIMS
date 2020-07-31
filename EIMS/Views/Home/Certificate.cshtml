@@ -1,0 +1,78 @@
+﻿@model EIMS.Models.CertificateModel
+
+<div class="well" style="background-color:#5cb85c">
+    <h3 class="text-center">Completion Letter</h3>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 col-lg-offset-1">
+            @*@using (Html.BeginForm("AddProject_Mentor", "Mentor", FormMethod.Post))
+                {*@
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <form id="myFormCertificate">
+                   
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                       <label class = "control-label col-md-4">Intern Id </label>
+                        <div class="col-md-8">
+                           <div >
+                               <input class = "form-control" type="text" id="txtInternId"/>
+                           </div>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Internship Start Date</label>
+                        <div class="col-md-8">
+                            <div >
+                                <input type="text" class="form-control" id="txtStartDate" placeholder="YYYY/MM/DD" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Internship End Date</label>
+                        <div class="col-md-8">
+                            <div >
+                                <input type="text" id="txtEndDate" class="form-control" placeholder="YYYY/MM/DD" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Performance Remarks</label>
+                        <div class="col-md-8">
+                            <div>
+                                <textarea id="txtAreaRemarks" class="form-control" style="margin: 0px; width: 328px; height: 87px;"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+               
+                </form>
+            </div>
+            @*}*@
+
+
+
+       
+            <hr />
+            <div class="well">
+                <button style="align-content:center" class="btn btn-success "  id="btnPrint">Print Letter</button>
+                <button style="align-content:center" class="btn btn-success " id="btnCancel">Cancel</button>
+
+            </div>
+        </div>
+        <div id="ptinnt"></div>
+        <div id="editor"></div>
+        
+    </div>
+</div>
+@section Scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+<script src="~/ViewScript/Certificate.js"></script>
+}
